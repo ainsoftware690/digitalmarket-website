@@ -74,7 +74,7 @@ const WhyChooseUs = () => {
 
           <div className="max-w-4xl mx-auto">
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-12 backdrop-blur-sm bg-white/5 p-8 rounded-2xl border border-white/10">
-              We don't just provide services—we engineer success. By blending technical expertise with financial literacy, 
+              We don&apos;t just provide services—we engineer success. By blending technical expertise with financial literacy, 
               we offer a one-stop ecosystem where entrepreneurs can develop, launch, and scale profitable digital enterprises. 
               Our high-yield business model allows us to work with clients ranging from startups to corporate enterprises, 
               ensuring measurable and sustainable results in a highly competitive market.

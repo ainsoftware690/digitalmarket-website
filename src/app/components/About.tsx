@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Target, Users, Award, TrendingUp, Globe, Code, Lightbulb, Shield } from 'lucide-react';
+import { Target, Users, Award, TrendingUp, Globe, Code, Lightbulb, } from 'lucide-react';
 
 const About = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -120,7 +120,7 @@ const About = () => {
               <div className="w-20 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-400 mx-auto rounded-full mb-8"></div>
               <p className="text-xl md:text-2xl text-gray-300 text-center leading-relaxed max-w-4xl mx-auto">
                 At DIGITAL MARKET MART, we <span className="text-cyan-300 font-semibold">bridge the gap between innovation and strategy</span>, 
-                offering tailored solutions that empower businesses to dominate the digital landscape. Whether you're a startup looking for 
+                offering tailored solutions that empower businesses to dominate the digital landscape. Whether you&apos;re a startup looking for 
                 brand establishment or an established entity seeking optimization and growth, we provide 
                 <span className="text-blue-300 font-semibold"> scalable, result-driven solutions customized to meet your needs</span>.
               </p>

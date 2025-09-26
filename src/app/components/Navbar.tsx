@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Search, Menu, X, ChevronDown, Bell, User } from "lucide-react";
+import { Menu, X, ChevronDown, Bell, User } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 

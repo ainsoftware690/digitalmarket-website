@@ -177,7 +177,7 @@ const Testimonial: React.FC = () => {
             What Our Clients Say
           </h2>
           <p className="text-slate-300 text-xl max-w-3xl mx-auto">
-            Discover how we've transformed businesses and empowered entrepreneurs to achieve their goals
+            Discover how we&apos;ve transformed businesses and empowered entrepreneurs to achieve their goals
           </p>
         </div>
 
@@ -211,7 +211,7 @@ const Testimonial: React.FC = () => {
             {/* Testimonial content */}
             <blockquote className="text-center relative z-10">
               <p className="text-xl md:text-2xl text-slate-200 leading-relaxed mb-8 font-light">
-                "{testimonials[currentIndex].content}"
+                {testimonials[currentIndex].content}
               </p>
               
               {/* Author info */}

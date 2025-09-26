@@ -163,10 +163,10 @@ const ContactPage: React.FC = () => {
             Get In Touch
           </div>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold bg-gradient-to-r from-white via-indigo-200 to-teal-400 bg-clip-text text-transparent mb-4 leading-tight">
-            Let's Work Together
+            Let&apos;s Work Together
           </h1>
           <p className="text-slate-300 text-xl max-w-3xl mx-auto">
-            Ready to transform your business? Get in touch with our team of experts and let's discuss how we can help you achieve your goals.
+            Ready to transform your business? Get in touch with our team of experts and let&apos;s discuss how we can help you achieve your goals.
           </p>
         </div>
 
@@ -192,7 +192,7 @@ const ContactPage: React.FC = () => {
                   <div className="text-center py-12 animate-fade-in-up">
                     <CheckCircle className="w-16 h-16 text-emerald-400 mx-auto mb-4 animate-bounce" />
                     <h3 className="text-2xl font-bold text-emerald-400 mb-2">Message Sent!</h3>
-                    <p className="text-slate-300">Thank you for reaching out. We'll get back to you within 24 hours.</p>
+                    <p className="text-slate-300">Thank you for reaching out. We&apos;ll get back to you within 24 hours.</p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -310,7 +310,7 @@ const ContactPage: React.FC = () => {
                 Contact Information
               </h2>
               <p className="text-slate-300 text-lg">
-                Have questions? We're here to help. Reach out to us through any of these channels and our team will get back to you promptly.
+                Have questions? We&apos;re here to help. Reach out to us through any of these channels and our team will get back to you promptly.
               </p>
             </div>
 

@@ -56,13 +56,13 @@ const Hero = () => {
   ];
 
   // Circular positions around the central orb for tech icons
-  const techIconPositions = [
-    { top: '20%', left: '60%', delay: '0s', distance: '120px' }, // Top
-    { top: '35%', left: '80%', delay: '0.5s', distance: '140px' }, // Top Right  
-    { top: '65%', left: '80%', delay: '1s', distance: '140px' }, // Bottom Right
-    { top: '80%', left: '60%', delay: '1.5s', distance: '120px' }, // Bottom
-    { top: '35%', left: '40%', delay: '2s', distance: '140px' }, // Top Left
-  ];
+  // const techIconPositions = [
+  //   { top: '20%', left: '60%', delay: '0s', distance: '120px' }, // Top
+  //   { top: '35%', left: '80%', delay: '0.5s', distance: '140px' }, // Top Right  
+  //   { top: '65%', left: '80%', delay: '1s', distance: '140px' }, // Bottom Right
+  //   { top: '80%', left: '60%', delay: '1.5s', distance: '120px' }, // Bottom
+  //   { top: '35%', left: '40%', delay: '2s', distance: '140px' }, // Top Left
+  // ];
 
   return (
     <div className="relative h-[90vh] min-h-[1000px] overflow-hidden bg-black">
