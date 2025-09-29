@@ -1,38 +1,28 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { MapPin, Phone, Mail, Facebook, Twitter, Instagram, Youtube, ArrowRight, ExternalLink } from 'lucide-react';
-import Image from 'next/image'
+import { MapPin, Phone, Mail, Facebook, Twitter, Instagram, Youtube, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image'
+
 const Footer = () => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+  
   const services = [
-    'Interface Design',
+    'Web Development',
+    'Mobile App Development',
     'SEO Optimizer', 
     'Digital Marketing',
-    'Market Monitor',
-    'Graphic Design'
   ];
 
   const importantLinks = [
-    'Contact',
-    'Privacy Policy',
-    'Refund Policy',
-    'Terms and Conditions'
-  ];
-
-  const recentPosts = [
-    {
-      title: 'How Wireless Technology more Changing Business',
-      date: 'December 8, 2024'
-    },
-    {
-      title: '5 Ways Technology Today at Improved Business',
-      date: 'December 6, 2024'
-    }
+    { name: 'Contact', href: '/contact' },
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Refund Policy', href: '/refund-policy' },
+    { name: 'Terms and Conditions', href: '/terms-and-conditions' }
   ];
 
   const socialIcons = [
@@ -78,24 +68,23 @@ const Footer = () => {
         </div>
 
         {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/20 hover:border-cyan-400/30 hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 group">
-              <div className="flex-shrink-0 group cursor-pointer mb-3">
-              <div className="relative flex items-center">
-                <Link href="/" className="flex items-center h-16 ">
-                  <Image
-                    src="/images/logo.png"
-                  alt="Digital Logo"
-                    width={150}    
-                    height={70}    
-                    className=" object-contain transition-transform duration-300 group-hover:scale-105"
-                    priority
-                  />
-                </Link>
+              <div className="flex-shrink-0 group cursor-pointer mb-6">
+                <div className="relative flex items-center">
+                  <Link href="/" className="flex items-center h-16 ">
+                    <Image
+                      src="/images/logo.png"
+                      alt="Digital Logo"
+                      width={160}    
+                      height={80}    
+                      className=" object-contain transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </Link>
+                </div>
               </div>
-            </div>
               
               <div className="space-y-4">
                 <div className="flex items-start space-x-4 group/item hover:bg-white/5 rounded-xl p-3 -m-3 transition-all duration-300">
@@ -172,42 +161,17 @@ const Footer = () => {
               <ul className="space-y-4">
                 {importantLinks.map((link, index) => (
                   <li key={index} className="group/link">
-                    <div className="flex items-center space-x-4 cursor-pointer hover:bg-white/5 rounded-xl p-3 -m-3 transition-all duration-300">
-                      <div className="w-8 h-8 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-lg flex items-center justify-center border border-purple-400/30 group-hover/link:scale-110 group-hover/link:border-purple-400/50 transition-all duration-300">
-                        <ArrowRight className="w-4 h-4 text-purple-400 group-hover/link:translate-x-0.5 transition-transform" />
+                    <a href={link.href}>
+                      <div className="flex items-center space-x-4 cursor-pointer hover:bg-white/5 rounded-xl p-3 -m-3 transition-all duration-300">
+                        <div className="w-8 h-8 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-lg flex items-center justify-center border border-purple-400/30 group-hover/link:scale-110 group-hover/link:border-purple-400/50 transition-all duration-300">
+                          <ArrowRight className="w-4 h-4 text-purple-400 group-hover/link:translate-x-0.5 transition-transform" />
+                        </div>
+                        <span className="text-gray-300 group-hover/link:text-white font-medium transition-colors">{link.name}</span>
                       </div>
-                      <span className="text-gray-300 group-hover/link:text-white font-medium transition-colors">{link}</span>
-                    </div>
+                    </a>
                   </li>
                 ))}
               </ul>
-            </div>
-          </div>
-
-          {/* Recent Posts */}
-          <div className="lg:col-span-1">
-            <div className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/20 hover:border-emerald-400/30 hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-500 h-full group">
-              <h3 className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-8 flex items-center group-hover:scale-105 transition-transform duration-300">
-                Recent Posts
-                <div className="w-16 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full ml-4"></div>
-              </h3>
-              <div className="space-y-6">
-                {recentPosts.map((post, index) => (
-                  <div key={index} className="group/post cursor-pointer">
-                    <div className="bg-gradient-to-br from-white/10 to-white/5 rounded-2xl p-6 border border-white/20 hover:border-emerald-400/40 hover:bg-white/15 hover:shadow-lg hover:shadow-emerald-500/20 transform hover:scale-105 transition-all duration-300">
-                      <h4 className="text-white font-semibold text-sm leading-relaxed group-hover/post:text-emerald-300 transition-colors mb-3">
-                        {post.title}
-                      </h4>
-                      <div className="flex items-center justify-between">
-                        <p className="text-gray-400 text-xs font-medium">{post.date}</p>
-                        <div className="w-8 h-8 bg-gradient-to-br from-emerald-400/20 to-teal-400/20 rounded-full flex items-center justify-center border border-emerald-400/30 group-hover/post:scale-110 group-hover/post:border-emerald-400/50 transition-all duration-300">
-                          <ExternalLink className="w-3 h-3 text-emerald-400" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>
@@ -219,7 +183,6 @@ const Footer = () => {
               © 2025 DigitalMarketMart. All rights reserved.
             </p>
             <div className="flex items-center space-x-6 mt-4 md:mt-0">
-              {/* <span className="text-gray-300 text-sm font-medium">Built with ❤️ using Next.js & Tailwind CSS</span> */}
               {isClient && (
                 <div className="flex space-x-2">
                   <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>

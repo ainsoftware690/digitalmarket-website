@@ -43,14 +43,14 @@ const Financial: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white overflow-hidden relative">
-      {/* Animated gradient background */}
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-slate-800 via-amber-600 to-yellow-500 opacity-80 animate-gradient-xy bg-[length:400%_400%]" />
+      {/* Animated gradient background - Changed from fixed to absolute */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 via-amber-600 to-yellow-500 opacity-80" />
       
-      {/* Gradient overlay */}
-      <div className="fixed inset-0 bg-gradient-to-r from-amber-500/10 via-transparent to-yellow-500/10" />
+      {/* Gradient overlay - Changed from fixed to absolute */}
+      <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-transparent to-yellow-500/10" />
       
-      {/* Floating gears background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+      {/* Floating gears background - Changed from fixed to absolute */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {gears.map((gear) => (
           <div
             key={gear.id}
@@ -225,15 +225,6 @@ const Financial: React.FC = () => {
       </div>
 
       <style jsx>{`
-        @keyframes gradient-xy {
-          0%, 100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-
         @keyframes glow-amber {
           0%, 100% {
             box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
@@ -272,10 +263,6 @@ const Financial: React.FC = () => {
           to {
             transform: rotate(360deg);
           }
-        }
-
-        .animate-gradient-xy {
-          animation: gradient-xy 15s ease infinite;
         }
 
         .animate-glow-amber {
