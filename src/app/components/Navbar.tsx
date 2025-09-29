@@ -38,9 +38,9 @@ const Navbar = () => {
                 <Link href="/" className="flex items-center h-16">
                   <Image
                     src="/images/logo.png"
-                  alt="digital Logo"
-                    width={150}    
-                    height={70}    
+                    alt="digital Logo"
+                    width={150}
+                    height={70}
                     className=" object-contain transition-transform duration-300 group-hover:scale-105"
                     priority
                   />
@@ -91,8 +91,7 @@ const Navbar = () => {
                         "Cybersecurity",
                         "SEO & Digital Marketing",
                         "IT Solutions",
-                        "Strategic Consulting", 
-
+                        "Strategic Consulting",
                       ].map((service, index) => (
                         <Link
                           key={index}
@@ -127,14 +126,51 @@ const Navbar = () => {
                   <Bell className="w-5 h-5 text-slate-300 group-hover:text-cyan-400 transition-colors duration-300" />
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-red-400 to-pink-500 rounded-full animate-pulse"></div>
                 </button>
-
-                <button className="p-3 bg-gradient-to-r from-cyan-600/20 to-teal-600/20 hover:from-cyan-500/30 hover:to-teal-500/30 rounded-xl backdrop-blur-sm border border-cyan-500/30 hover:border-cyan-400/50 transition-all duration-300 group">
+                {/* <Link
+                  href="/dashboard/login"
+                  className="p-3 bg-gradient-to-r from-cyan-600/20 to-teal-600/20 
+                           hover:from-cyan-500/30 hover:to-teal-500/30 
+                            rounded-xl backdrop-blur-sm border border-cyan-500/30 
+                            hover:border-cyan-400/50 transition-all duration-300 group flex items-center justify-center"
+                >
                   <User className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300" />
-                </button>
-                 <Link href="/">
-                <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-900 font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300">
-                  Get Started
-                </button>
+                </Link> */}
+                <div className="relative group">
+                  {/* User Icon Button */}
+                  <button
+                    className="p-3 bg-gradient-to-r from-cyan-600/20 to-teal-600/20 
+               hover:from-cyan-500/30 hover:to-teal-500/30 
+               rounded-xl backdrop-blur-sm border border-cyan-500/30 
+               hover:border-cyan-400/50 transition-all duration-300 flex items-center justify-center"
+                  >
+                    <User className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300" />
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  <div
+                    className="absolute right-0 mt-2 w-40 bg-gradient-to-br from-slate-800/95 to-blue-900/95 
+               rounded-xl shadow-xl border border-cyan-500/20 opacity-0 invisible 
+               group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                  >
+                    <Link
+                      href="/dashboard/login"
+                      className="block px-4 py-2 text-slate-200 hover:text-cyan-400 hover:bg-slate-700/50 rounded-t-xl"
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      href="/dashboard/register"
+                      className="block px-4 py-2 text-slate-200 hover:text-cyan-400 hover:bg-slate-700/50 rounded-b-xl"
+                    >
+                      Register
+                    </Link>
+                  </div>
+                </div>
+
+                <Link href="/">
+                  <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-900 font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300">
+                    Get Started
+                  </button>
                 </Link>
               </div>
             </div>
@@ -186,20 +222,20 @@ const Navbar = () => {
                 >
                   Contact
                 </Link>
-                 <Link href="/">
-                <div className="pt-4 border-t border-slate-600/30">
-                  <button className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-900 font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 transition-all duration-300">
-                    Get Started
-                  </button>
+                <Link href="/">
+                  <div className="pt-4 border-t border-slate-600/30">
+                    <button className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-900 font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 transition-all duration-300">
+                      Get Started
+                    </button>
                   </div>
-                  </Link>
-                </div>
+                </Link>
               </div>
             </div>
+          </div>
         </div>
       </nav>
     </div>
   );
 };
 
-export default Navbar;
+export default Navbar; 

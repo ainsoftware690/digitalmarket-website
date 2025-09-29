@@ -87,7 +87,7 @@ const Footer = () => {
                 <Link href="/" className="flex items-center h-16 ">
                   <Image
                     src="/images/logo.png"
-                  alt="FrntIn Logo"
+                  alt="Digital Logo"
                     width={150}    
                     height={70}    
                     className=" object-contain transition-transform duration-300 group-hover:scale-105"
@@ -103,8 +103,8 @@ const Footer = () => {
                     <MapPin className="w-5 h-5 text-white" />
                   </div>
                   <p className="text-gray-300 text-sm leading-relaxed group-hover/item:text-white transition-colors">
-                    8206 Louisiana Blvd, NE, STE A1177,<br />
-                    Albuquerque, NM, 87113
+                    33 W Franklin St Suite 201,<br />
+                    Hagerstown, MD, 21740
                   </p>
                 </div>
                 
@@ -113,7 +113,7 @@ const Footer = () => {
                     <Phone className="w-5 h-5 text-white" />
                   </div>
                   
-                  <p className="text-gray-300 hover:text-white transition-colors group-hover/item:text-white">+1 (505) 528-0372</p>
+                  <p className="text-gray-300 hover:text-white transition-colors group-hover/item:text-white">+1 (240) 217-6149</p>
                 </div>
                 
                 <div className="flex items-center space-x-4 group/item cursor-pointer hover:bg-white/5 rounded-xl p-3 -m-3 transition-all duration-300">
