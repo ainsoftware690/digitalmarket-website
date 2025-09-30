@@ -12,10 +12,10 @@ const Footer = () => {
   }, []);
   
   const services = [
-    'Web Development',
-    'Mobile App Development',
-    'SEO Optimizer', 
-    'Digital Marketing',
+    { name: "Web Development", href: "/services/web-development" },
+    { name: "Mobile App Development", href: "/services/mobile-app-development" },
+    { name: "SEO Optimizer", href: "/services/seo-optimizer" },
+    { name: "Digital Marketing", href: "/services/digital-marketing" },
   ];
 
   const importantLinks = [
@@ -92,8 +92,8 @@ const Footer = () => {
                     <MapPin className="w-5 h-5 text-white" />
                   </div>
                   <p className="text-gray-300 text-sm leading-relaxed group-hover/item:text-white transition-colors">
-                    33 W Franklin St Suite 201,<br />
-                    Hagerstown, MD, 21740
+                  30 SUMMER ST HAGERSTOWN,<br />
+                    MD 21740
                   </p>
                 </div>
                 
@@ -139,12 +139,14 @@ const Footer = () => {
               <ul className="space-y-4">
                 {services.map((service, index) => (
                   <li key={index} className="group/service">
-                    <div className="flex items-center space-x-4 cursor-pointer hover:bg-white/5 rounded-xl p-3 -m-3 transition-all duration-300">
-                      <div className="w-8 h-8 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 rounded-lg flex items-center justify-center border border-cyan-400/30 group-hover/service:scale-110 group-hover/service:border-cyan-400/50 transition-all duration-300">
-                        <ArrowRight className="w-4 h-4 text-cyan-400 group-hover/service:translate-x-0.5 transition-transform" />
+                    <Link href={service.href}>
+                      <div className="flex items-center space-x-4 cursor-pointer hover:bg-white/5 rounded-xl p-3 -m-3 transition-all duration-300">
+                        <div className="w-8 h-8 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 rounded-lg flex items-center justify-center border border-cyan-400/30 group-hover/service:scale-110 group-hover/service:border-cyan-400/50 transition-all duration-300">
+                          <ArrowRight className="w-4 h-4 text-cyan-400 group-hover/service:translate-x-0.5 transition-transform" />
+                        </div>
+                        <span className="text-gray-300 group-hover/service:text-white font-medium transition-colors">{service.name}</span>
                       </div>
-                      <span className="text-gray-300 group-hover/service:text-white font-medium transition-colors">{service}</span>
-                    </div>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -161,14 +163,14 @@ const Footer = () => {
               <ul className="space-y-4">
                 {importantLinks.map((link, index) => (
                   <li key={index} className="group/link">
-                    <a href={link.href}>
+                    <Link href={link.href}>
                       <div className="flex items-center space-x-4 cursor-pointer hover:bg-white/5 rounded-xl p-3 -m-3 transition-all duration-300">
                         <div className="w-8 h-8 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-lg flex items-center justify-center border border-purple-400/30 group-hover/link:scale-110 group-hover/link:border-purple-400/50 transition-all duration-300">
                           <ArrowRight className="w-4 h-4 text-purple-400 group-hover/link:translate-x-0.5 transition-transform" />
                         </div>
                         <span className="text-gray-300 group-hover/link:text-white font-medium transition-colors">{link.name}</span>
                       </div>
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

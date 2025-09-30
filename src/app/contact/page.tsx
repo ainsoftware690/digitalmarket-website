@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { Mail, Phone, MapPin, Send, Clock, Globe, MessageCircle, CheckCircle } from 'lucide-react';
+import Link from 'next/link';
 
 interface ContactInfo {
   icon: React.ReactNode;
@@ -49,13 +50,13 @@ const ContactPage: React.FC = () => {
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Call Us",
-      details: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
+      details: ["+1 (240) 217-6149"],
       gradient: "from-emerald-500 to-teal-500"
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Visit Us",
-      details: ["123 Tech Street", "Digital City, DC 12345"],
+      details: ["Digital Logo30 SUMMER ST HAGERSTOWN,MD 21740"],
       gradient: "from-purple-500 to-pink-500"
     },
     {
@@ -346,12 +347,14 @@ const ContactPage: React.FC = () => {
                 Schedule a free consultation to discuss your project and discover how we can help transform your business.
               </p>
               <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
-                <button className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
+                <Link href="/contact"
+                 className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
                   Book Consultation
-                </button>
-                <button className="border border-teal-400/50 text-teal-400 hover:bg-teal-400/10 font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:scale-105">
+                </Link>
+                <Link href="/"
+                 className="border border-teal-400/50 text-teal-400 hover:bg-teal-400/10 font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:scale-105">
                   View Portfolio
-                </button>
+                </Link>
               </div>
             </div>
           </div>

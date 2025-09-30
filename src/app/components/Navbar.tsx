@@ -138,11 +138,11 @@ const Navbar = () => {
 
               {/* Action Buttons */}
               <div className="flex items-center space-x-4 ml-8">
-                <button className="relative p-3 bg-gradient-to-r from-slate-700/50 to-blue-800/50 hover:from-cyan-600/20 hover:to-teal-600/20 rounded-xl backdrop-blur-sm border border-slate-600/30 hover:border-cyan-500/50 transition-all duration-300 group">
-                  <Bell className="w-5 h-5 text-slate-300 group-hover:text-cyan-400 transition-colors duration-300" />
+                {/* <button className="relative p-3 bg-gradient-to-r from-slate-700/50 to-blue-800/50 hover:from-cyan-600/20 hover:to-teal-600/20 rounded-xl backdrop-blur-sm border border-slate-600/30 hover:border-cyan-500/50 transition-all duration-300 group">
+                 <Bell className="w-5 h-5 text-slate-300 group-hover:text-cyan-400 transition-colors duration-300" />
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-red-400 to-pink-500 rounded-full animate-pulse"></div>
-                </button>
-                <Link
+                </button> */}
+                {/* <Link
                   href="/"
                   className="p-3 bg-gradient-to-r from-cyan-600/20 to-teal-600/20 
                            hover:from-cyan-500/30 hover:to-teal-500/30 
@@ -150,7 +150,7 @@ const Navbar = () => {
                             hover:border-cyan-400/50 transition-all duration-300 group flex items-center justify-center"
                 >
                   <User className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300" />
-                </Link>
+                </Link> */}
 
                 <Link href="/">
                   <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-900 font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300">
@@ -200,7 +200,7 @@ const Navbar = () => {
                     Services
                     <ChevronDown
                       className={`w-4 h-4 transition-transform duration-300 ${
-                        activeDropdown === "services-mobile" ? "rotate-180" : ""
+                      activeDropdown === "services-mobile" ? "rotate-180" : ""
                       }`}
                     />
                   </button>
