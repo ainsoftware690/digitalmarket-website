@@ -18,15 +18,18 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close dropdown when clicking outside
+  // Close dropdown when clicking outside (desktop only)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setActiveDropdown(null);
+        // Only close desktop dropdown
+        if (activeDropdown === "services") {
+          setActiveDropdown(null);
+        }
       }
     };
 
-    if (activeDropdown) {
+    if (activeDropdown === "services") {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
@@ -40,6 +43,11 @@ const Navbar = () => {
   };
 
   const closeDropdown = () => {
+    setActiveDropdown(null);
+  };
+
+  const closeAll = () => {
+    setIsMenuOpen(false);
     setActiveDropdown(null);
   };
 
@@ -64,7 +72,7 @@ const Navbar = () => {
             {/* Logo */}
             <div className="flex-shrink-0 group cursor-pointer">
               <div className="relative flex items-center">
-                <Link href="/" className="flex items-center h-16">
+                <Link href="/" className="flex items-center h-12 sm:h-16">
                   <Image
                     src="/images/logo.png"
                     alt="digital Logo"
@@ -138,20 +146,6 @@ const Navbar = () => {
 
               {/* Action Buttons */}
               <div className="flex items-center space-x-4 ml-8">
-                {/* <button className="relative p-3 bg-gradient-to-r from-slate-700/50 to-blue-800/50 hover:from-cyan-600/20 hover:to-teal-600/20 rounded-xl backdrop-blur-sm border border-slate-600/30 hover:border-cyan-500/50 transition-all duration-300 group">
-                 <Bell className="w-5 h-5 text-slate-300 group-hover:text-cyan-400 transition-colors duration-300" />
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-red-400 to-pink-500 rounded-full animate-pulse"></div>
-                </button> */}
-                {/* <Link
-                  href="/"
-                  className="p-3 bg-gradient-to-r from-cyan-600/20 to-teal-600/20 
-                           hover:from-cyan-500/30 hover:to-teal-500/30 
-                            rounded-xl backdrop-blur-sm border border-cyan-500/30 
-                            hover:border-cyan-400/50 transition-all duration-300 group flex items-center justify-center"
-                >
-                  <User className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300" />
-                </Link> */}
-
                 <Link href="/">
                   <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-900 font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300">
                     Get Started
@@ -164,12 +158,12 @@ const Navbar = () => {
             <div className="lg:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-3 bg-gradient-to-r from-slate-700/50 to-blue-800/50 hover:from-cyan-600/20 hover:to-teal-600/20 rounded-xl backdrop-blur-sm border border-slate-600/30 hover:border-cyan-500/50 transition-all duration-300"
+                className="p-2 sm:p-3 bg-gradient-to-r from-slate-700/50 to-blue-800/50 hover:from-cyan-600/20 hover:to-teal-600/20 rounded-xl backdrop-blur-sm border border-slate-600/30 hover:border-cyan-500/50 transition-all duration-300"
               >
                 {isMenuOpen ? (
-                  <X className="w-6 h-6 text-slate-300" />
+                  <X className="w-5 h-5 sm:w-6 sm:h-6 text-slate-300" />
                 ) : (
-                  <Menu className="w-6 h-6 text-slate-300" />
+                  <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-slate-300" />
                 )}
               </button>
             </div>
@@ -178,67 +172,74 @@ const Navbar = () => {
           {/* Mobile Navigation */}
           <div
             className={`lg:hidden transition-all duration-500 overflow-hidden ${
-              isMenuOpen ? "max-h-[600px] opacity-100 pb-6" : "max-h-0 opacity-0"
+              isMenuOpen ? "max-h-[800px] opacity-100 pb-6" : "max-h-0 opacity-0"
             }`}
           >
             <div className="bg-gradient-to-br from-slate-800/95 to-blue-900/95 backdrop-blur-xl rounded-2xl border border-cyan-500/20 p-4 mt-4">
-              <div className="flex flex-col space-y-4">
+              <div className="flex flex-col space-y-2">
                 <Link
                   href="/"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-slate-200 hover:text-cyan-400 font-medium py-2 px-4 rounded-xl hover:bg-slate-700/30 transition-all duration-200"
+                  onClick={closeAll}
+                  className="text-slate-200 hover:text-cyan-400 font-medium py-3 px-4 rounded-xl hover:bg-slate-700/30 transition-all duration-200"
                 >
                   Home
                 </Link>
 
                 {/* Mobile Services Dropdown */}
-                <div>
+                <div className="w-full">
                   <button
                     onClick={() => toggleDropdown("services-mobile")}
-                    className="w-full flex items-center justify-between text-slate-200 hover:text-cyan-400 font-medium py-2 px-4 rounded-xl hover:bg-slate-700/30 transition-all duration-200"
+                    className="w-full flex items-center justify-between text-slate-200 hover:text-cyan-400 font-medium py-3 px-4 rounded-xl hover:bg-slate-700/30 transition-all duration-200"
                   >
-                    Services
+                    <span>Services</span>
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-300 ${
-                      activeDropdown === "services-mobile" ? "rotate-180" : ""
+                      className={`w-4 h-4 transition-transform duration-300 flex-shrink-0 ${
+                        activeDropdown === "services-mobile" ? "rotate-180" : ""
                       }`}
                     />
                   </button>
-                  {activeDropdown === "services-mobile" && (
-                    <div className="mt-2 ml-4 space-y-2">
+                  
+                  {/* Mobile Services Submenu */}
+                  <div
+                    className={`transition-all duration-300 overflow-hidden ${
+                      activeDropdown === "services-mobile"
+                        ? "max-h-96 opacity-100 mt-2"
+                        : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <div className="ml-2 space-y-1 bg-slate-700/20 rounded-xl p-2">
                       {services.map((service, index) => (
                         <Link
                           key={index}
                           href={service.href}
-                          onClick={() => {
-                            setIsMenuOpen(false);
-                            setActiveDropdown(null);
-                          }}
-                          className="block text-slate-300 hover:text-cyan-400 py-2 px-4 rounded-lg hover:bg-slate-700/30 transition-all duration-200"
+                          onClick={closeAll}
+                          className="block text-slate-300 hover:text-cyan-400 py-2.5 px-4 rounded-lg hover:bg-slate-700/50 transition-all duration-200 text-sm"
                         >
                           {service.name}
                         </Link>
                       ))}
                     </div>
-                  )}
+                  </div>
                 </div>
 
                 <Link
                   href="#testimonial"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-slate-200 hover:text-cyan-400 font-medium py-2 px-4 rounded-xl hover:bg-slate-700/30 transition-all duration-200"
+                  onClick={closeAll}
+                  className="text-slate-200 hover:text-cyan-400 font-medium py-3 px-4 rounded-xl hover:bg-slate-700/30 transition-all duration-200"
                 >
                   Blogs
                 </Link>
+                
                 <Link
                   href="/contact"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-slate-200 hover:text-cyan-400 font-medium py-2 px-4 rounded-xl hover:bg-slate-700/30 transition-all duration-200"
+                  onClick={closeAll}
+                  className="text-slate-200 hover:text-cyan-400 font-medium py-3 px-4 rounded-xl hover:bg-slate-700/30 transition-all duration-200"
                 >
                   Contact
                 </Link>
-                <Link href="/" onClick={() => setIsMenuOpen(false)}>
-                  <div className="pt-4 border-t border-slate-600/30">
+                
+                <Link href="/" onClick={closeAll}>
+                  <div className="pt-4 border-t border-slate-600/30 mt-2">
                     <button className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-900 font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 transition-all duration-300">
                       Get Started
                     </button>

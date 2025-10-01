@@ -89,7 +89,7 @@ export default function SEOOptimizer() {
     {
       name: "Starter",
       price: "$499",
-      period: "/month",
+      period: "one-time",
       description: "Perfect for small businesses just starting with SEO",
       features: [
         "Up to 20 Keywords",
@@ -104,7 +104,7 @@ export default function SEOOptimizer() {
     {
       name: "Professional",
       price: "$999",
-      period: "/month",
+      period: "one-time",
       description: "Ideal for growing businesses seeking better rankings",
       features: [
         "Up to 50 Keywords",
@@ -121,7 +121,7 @@ export default function SEOOptimizer() {
     {
       name: "Enterprise",
       price: "$1,999",
-      period: "/month",
+      period: "one-time",
       description: "For large businesses dominating their market",
       features: [
         "Unlimited Keywords",
