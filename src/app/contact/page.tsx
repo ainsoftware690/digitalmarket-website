@@ -56,7 +56,7 @@ const ContactPage: React.FC = () => {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Visit Us",
-      details: ["Digital Logo30 SUMMER ST HAGERSTOWN,MD 21740"],
+      details: ["30 SUMMER ST HAGERSTOWN,MD 21740"],
       gradient: "from-purple-500 to-pink-500"
     },
     {
@@ -82,7 +82,7 @@ const ContactPage: React.FC = () => {
     for (let i = 0; i < 15; i++) {
       elements.push({
         id: i,
-        x: Math.random() * 100,
+        x: Math.random() * 100,    
         y: Math.random() * 100,
         size: Math.random() * 4 + 2,
         delay: Math.random() * 5,
@@ -91,7 +91,7 @@ const ContactPage: React.FC = () => {
     }
     setFloatingElements(elements);
 
-    // Mouse move handler
+    // Mouse move handler 
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth) * 2 - 1,

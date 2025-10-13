@@ -26,11 +26,12 @@ const Footer = () => {
   ];
 
   const socialIcons = [
-    { icon: Facebook, color: 'hover:text-blue-400' },
-    { icon: Twitter, color: 'hover:text-sky-400' },
-    { icon: Instagram, color: 'hover:text-pink-400' },
-    { icon: Youtube, color: 'hover:text-red-400' }
-  ];
+  { icon: Facebook, color: 'hover:text-blue-400', link: 'https://www.facebook.com/profile.php?id=61582243591798' },
+  { icon: Twitter, color: 'hover:text-sky-400', link: 'https://x.com/Digitalmart101' },
+  { icon: Instagram, color: 'hover:text-pink-400', link: 'https://www.instagram.com/digitalmarketmart?igsh=MjlucmhlMjc3a2Rq' },
+  { icon: Youtube, color: 'hover:text-red-400', link: 'https://youtube.com/yourchannel' },
+];
+
 
   return (
     <footer className="relative bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
@@ -115,17 +116,21 @@ const Footer = () => {
                 </div>
               </div>
 
-              {/* Social Icons */}
-              <div className="flex space-x-3 mt-8">
-                {socialIcons.map((social, index) => (
-                  <div
-                    key={index}
-                    className="w-12 h-12 bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center cursor-pointer border border-white/30 hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/25 transform hover:scale-110 hover:-translate-y-1 transition-all duration-300"
-                  >
-                    <social.icon className="w-5 h-5 text-white hover:text-cyan-300 transition-colors" />
-                  </div>
-                ))}
-              </div>
+             {/* Social Icons */}
+<div className="flex space-x-3 mt-8">
+  {socialIcons.map((social, index) => (
+    <a
+      key={index}
+      href={social.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-12 h-12 bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center cursor-pointer border border-white/30 hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/25 transform hover:scale-110 hover:-translate-y-1 transition-all duration-300"
+    >
+      <social.icon className={`w-5 h-5 text-white ${social.color} transition-colors`} />
+    </a>
+  ))}
+</div>
+
             </div>
           </div>
 
