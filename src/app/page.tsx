@@ -3,7 +3,7 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Service from "./components/Service"
 import Financial from "./components/Financial";
-// import Testimonial from "./components/Testimonial";
+ import Testimonial from "./components/Testimonial";
 import WhyChooseUs from "./components/WhyChooseUs";
 
 
@@ -18,7 +18,7 @@ export default function Home() {
     <Service />
     <Financial />
     <WhyChooseUs />
-    {/* <Testimonial /> */}
+    <Testimonial />
 
     </div>
     </>

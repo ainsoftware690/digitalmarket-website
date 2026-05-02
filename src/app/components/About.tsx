@@ -50,7 +50,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white relative overflow-hidden">
+    <div className="min-h-screen bg-slate-900 text-white relative overflow-hidden" id= "about">
       {/* Animated Background Gradients */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900/30 to-slate-800"></div>

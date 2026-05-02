@@ -94,6 +94,12 @@ const Navbar = () => {
                   </span>
                   <div className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-teal-400 group-hover:w-full transition-all duration-300"></div>
                 </Link>
+                  <Link href="#about" className="relative group">
+                  <span className="text-slate-100 hover:text-cyan-400 font-medium transition-colors duration-300">
+                    About Us
+                  </span>
+                  <div className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-teal-400 group-hover:w-full transition-all duration-300"></div>
+                </Link>
 
                 {/* Services Dropdown */}
                 <div className="relative" ref={dropdownRef}>
@@ -129,12 +135,7 @@ const Navbar = () => {
                   )}
                 </div>
 
-                <Link href="#testimonial" className="relative group">
-                  <span className="text-slate-100 hover:text-cyan-400 font-medium transition-colors duration-300">
-                    Blogs
-                  </span>
-                  <div className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-teal-400 group-hover:w-full transition-all duration-300"></div>
-                </Link>
+              
 
                 <Link href="/contact" className="relative group">
                   <span className="text-slate-100 hover:text-cyan-400 font-medium transition-colors duration-300">
@@ -146,7 +147,7 @@ const Navbar = () => {
 
               {/* Action Buttons */}
               <div className="flex items-center space-x-4 ml-8">
-                <Link href="/">
+                <Link href="/contact">
                   <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-900 font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300">
                     Get Started
                   </button>
@@ -183,6 +184,12 @@ const Navbar = () => {
                   className="text-slate-200 hover:text-cyan-400 font-medium py-3 px-4 rounded-xl hover:bg-slate-700/30 transition-all duration-200"
                 >
                   Home
+                </Link>
+                  <Link href="#about" className="relative group">
+                  <span className="text-slate-100 hover:text-cyan-400 font-medium transition-colors duration-300">
+                    About Us
+                  </span>
+                  <div className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-teal-400 group-hover:w-full transition-all duration-300"></div>
                 </Link>
 
                 {/* Mobile Services Dropdown */}
@@ -222,14 +229,14 @@ const Navbar = () => {
                   </div>
                 </div>
 
-                <Link
+                {/* <Link
                   href="#testimonial"
                   onClick={closeAll}
                   className="text-slate-200 hover:text-cyan-400 font-medium py-3 px-4 rounded-xl hover:bg-slate-700/30 transition-all duration-200"
                 >
                   Blogs
                 </Link>
-                
+                 */}
                 <Link
                   href="/contact"
                   onClick={closeAll}
@@ -238,7 +245,7 @@ const Navbar = () => {
                   Contact
                 </Link>
                 
-                <Link href="/" onClick={closeAll}>
+                <Link href="/contact" onClick={closeAll}>
                   <div className="pt-4 border-t border-slate-600/30 mt-2">
                     <button className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-900 font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 transition-all duration-300">
                       Get Started
