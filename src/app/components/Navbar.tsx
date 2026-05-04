@@ -55,8 +55,16 @@ const Navbar = () => {
     { name: "Web Development", href: "/services/web-development" },
     { name: "Mobile App Development", href: "/services/mobile-app-development" },
     { name: "SEO Optimizer", href: "/services/seo-optimizer" },
-    { name: "Digital Marketing", href: "/services/digital-marketing" },
+    { name: "Growth & Digital Marketing", href: "/services/digital-marketing" },
+    { name: "AI & Automation Systems", href: "/services/AI & Automation Systems" },
+    { name: "E-commerce Development", href: "/services/E-commerce Development" },
+    { name: "AI Content & Video Creation", href: "/services/AI Content & Video Creation" },
+
+
+
   ];
+  
+
 
   return (
     <div>
@@ -134,9 +142,11 @@ const Navbar = () => {
                     </div>
                   )}
                 </div>
-
-              
-
+                 <Link href="/vista" className="relative group">
+                  <span className="text-slate-100 hover:text-cyan-400 font-medium transition-colors duration-300">
+                    GCC Markets
+                  </span>
+                  </Link>
                 <Link href="/contact" className="relative group">
                   <span className="text-slate-100 hover:text-cyan-400 font-medium transition-colors duration-300">
                     Contact
