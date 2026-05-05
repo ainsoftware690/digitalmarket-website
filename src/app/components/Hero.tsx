@@ -274,7 +274,7 @@ const Hero = () => {
 
   {/* Button 2 → Call Button */}
   <a
-    href="tel:+12402176149"
+    href="tel:>+1301478-6786"
     className="cta-ghost"
     style={{
       padding: '13px 26px',
@@ -291,7 +291,7 @@ const Hero = () => {
     }}
   >
     <Phone size={15} style={{ color: '#00e5ff' }} />
-    +1 (240) 217-6149
+    +1 (301) 478-6786
   </a>
 
 </div>
