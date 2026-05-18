@@ -9,9 +9,9 @@ const services = [
   { label: "Mobile App Development", href: "/services/mobile-app-development" },
   { label: "SEO Optimizer", href: "/services/seo-optimizer" },
   { label: "Growth & Digital Marketing", href: "/services/digital-marketing" },
-  { label: "AI & Automation Systems", href: "/services/AI & Automation Systems" },
-  { label: "E-commerce Development", href: "/services/E-commerce Development" },
-  { label: "AI Content & Video Creation", href: "/services/AI Content & Video Creation" },
+  { label: "AI & Automation Systems", href: "/services/ai-automation-systems" },
+  { label: "E-commerce Development", href: "/services/e-commerce-development" },
+  { label: "AI Content & Video Creation", href: "/services/ai-content-video-creation" },
 ];
 
 const quickLinks = [
@@ -178,7 +178,7 @@ export default function Footer() {
               </a>
               <div className="footer-contact-item">
                 <span className="footer-contact-icon"><MapPin size={15} /></span>
-                <span>Available for global & GCC projects</span>
+                <span>Head office - 30 Summer St Hagerstown MD, 21740</span>
               </div>
             </div>
 

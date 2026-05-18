@@ -64,15 +64,15 @@ const Navbar = () => {
     { name: "Growth & Digital Marketing", href: "/services/digital-marketing" },
     {
       name: "AI & Automation Systems",
-      href: "/services/AI & Automation Systems",
+      href: "/services/ai-automation-systems",
     },
     {
       name: "E-commerce Development",
-      href: "/services/E-commerce Development",
+      href: "/services/e-commerce-development",
     },
     {
       name: "AI Content & Video Creation",
-      href: "/services/AI Content & Video Creation",
+      href: "/services/ai-content-video-creation",
     },
   ];
 
