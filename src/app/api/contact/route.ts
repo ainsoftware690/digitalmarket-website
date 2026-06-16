@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 const resend = new Resend(process.env.RESEND_API_KEY ?? "");
 
-
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface ContactPayload {
   name: string;
@@ -11,6 +10,50 @@ interface ContactPayload {
   company?: string;
   service?: string;
   message: string;
+}
+
+// ─── reCAPTCHA Verification ──────────────────────────────────────────────────
+interface RecaptchaResponse {
+  success: boolean;
+  score?: number;
+  action?: string;
+  "error-codes"?: string[];
+}
+
+async function verifyRecaptcha(
+  token: string
+): Promise<{ ok: boolean; score: number }> {
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+
+  // Agar key set hi nahi hai toh skip (dev/local fail-safe)
+  if (!secret) {
+    console.warn(
+      "[contact/route] RECAPTCHA_SECRET_KEY not set — skipping verification"
+    );
+    return { ok: true, score: 1 };
+  }
+
+  if (!token) return { ok: false, score: 0 };
+
+  try {
+    const res = await fetch(
+      "https://www.google.com/recaptcha/api/siteverify",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `secret=${secret}&response=${token}`,
+      }
+    );
+
+    const data: RecaptchaResponse = await res.json();
+    const score = data.score ?? 0;
+
+    // 0.5 standard threshold. Bot = low score.
+    return { ok: data.success && score >= 0.5, score };
+  } catch (err) {
+    console.error("[contact/route] reCAPTCHA verify error:", err);
+    return { ok: false, score: 0 };
+  }
 }
 
 // ─── Validation ───────────────────────────────────────────────────────────────
@@ -96,7 +139,7 @@ function adminEmailHtml(p: ContactPayload): string {
           <!-- Body -->
           <tr>
             <td style="background:#1e293b;padding:40px;border-left:1px solid #334155;border-right:1px solid #334155;">
-              
+
               <!-- Info rows -->
               ${[
                 { label: "👤 Name", value: p.name },
@@ -237,7 +280,7 @@ function userConfirmationHtml(p: ContactPayload): string {
 // ─── Route Handler ────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
   try {
-    // Parse body
+    // 1. Parse body
     let body: unknown;
     try {
       body = await req.json();
@@ -248,7 +291,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Validate
+    // 2. Validate payload
     const { valid, errors, payload } = validatePayload(body);
     if (!valid || !payload) {
       return NextResponse.json(
@@ -257,18 +300,35 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Send both emails in parallel
+    // 3. reCAPTCHA check
+    const token =
+      body && typeof body === "object" && "token" in body
+        ? String((body as Record<string, unknown>).token ?? "")
+        : "";
+
+    const recaptcha = await verifyRecaptcha(token);
+    if (!recaptcha.ok) {
+      console.warn(
+        `[contact/route] Bot blocked. Score: ${recaptcha.score}, email: ${payload.email}`
+      );
+      return NextResponse.json(
+        { success: false, message: "Verification failed. Please try again." },
+        { status: 403 }
+      );
+    }
+
+    // 4. Send both emails in parallel
     const [adminResult, userResult] = await Promise.allSettled([
-      // 1. Notify helpdesk
+      // Notify helpdesk
       resend.emails.send({
         from: "Digital Market Mart <contact@digitalmarketmart.com>",
         to: ["helpdesk@digitalmarketmart.com"],
         replyTo: payload.email,
-       subject: `New Inquiry – ${payload.service} from ${payload.name}`,
+        subject: `New Inquiry – ${payload.service ?? "General"} from ${payload.name}`,
         html: adminEmailHtml(payload),
       }),
 
-      // 2. Confirm to user
+      // Confirm to user
       resend.emails.send({
         from: "Digital Market Mart <contact@digitalmarketmart.com>",
         to: [payload.email],
@@ -277,14 +337,11 @@ export async function POST(req: NextRequest) {
       }),
     ]);
 
-    // Log errors but don't fail the user if confirmation email failed
+    // 5. Handle results
     if (adminResult.status === "rejected") {
       console.error("[contact/route] Admin email failed:", adminResult.reason);
       return NextResponse.json(
-        {
-          success: false,
-          message: "Failed to send message. Please try again later.",
-        },
+        { success: false, message: "Failed to send message. Please try again later." },
         { status: 500 }
       );
     }

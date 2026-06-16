@@ -44,6 +44,16 @@ interface FloatingDot {
   duration: number;
 }
 
+// ─── reCAPTCHA global type ──────────────────────────────────────────────────
+declare global {
+  interface Window {
+    grecaptcha?: {
+      ready: (cb: () => void) => void;
+      execute: (siteKey: string, opts: { action: string }) => Promise<string>;
+    };
+  }
+}
+
 // ─── Constants ────────────────────────────────────────────────────────────────
 const INITIAL_FORM: FormData = {
   name: "",
@@ -52,6 +62,7 @@ const INITIAL_FORM: FormData = {
   service: "",
   message: "",
 };
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
 
 const SERVICES = [
   {
@@ -255,6 +266,8 @@ const ContactPage: React.FC = () => {
     status: "idle",
     message: "",
   });
+  // Honeypot — hidden field, sirf bots fill karte hain
+  const [honeypot, setHoneypot] = useState("");
 
   // Generate floating dots only on client to avoid hydration mismatch
   useEffect(() => {
@@ -285,6 +298,16 @@ const ContactPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Honeypot trap — agar bhara hai toh bot hai, silently "success" dikhao
+    if (honeypot) {
+      setFormState({
+        status: "success",
+        message: "Your message has been sent! We'll reply within 24 hours.",
+      });
+      setFormData(INITIAL_FORM);
+      return;
+    }
+
     // Client-side guard
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setFormState({ status: "error", message: "Please fill in all required fields." });
@@ -294,10 +317,23 @@ const ContactPage: React.FC = () => {
     setFormState({ status: "submitting", message: "" });
 
     try {
+      // reCAPTCHA token generate
+      let token = "";
+      if (RECAPTCHA_SITE_KEY && window.grecaptcha) {
+        token = await new Promise<string>((resolve, reject) => {
+          window.grecaptcha!.ready(() => {
+            window.grecaptcha!
+              .execute(RECAPTCHA_SITE_KEY, { action: "contact_form" })
+              .then(resolve)
+              .catch(reject);
+          });
+        });
+      }
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, token }),
       });
 
       const data = await res.json();
@@ -308,8 +344,6 @@ const ContactPage: React.FC = () => {
           message: "Your message has been sent! We'll reply within 24 hours.",
         });
         setFormData(INITIAL_FORM);
-
-        // Auto-reset after 6 seconds
         setTimeout(() => setFormState({ status: "idle", message: "" }), 6000);
       } else {
         setFormState({
@@ -392,6 +426,25 @@ const ContactPage: React.FC = () => {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                    {/* Honeypot — humans ko invisible, bots isko bhar dete hain */}
+                    <input
+                      type="text"
+                      name="website"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      style={{
+                        position: "absolute",
+                        left: "-9999px",
+                        width: "1px",
+                        height: "1px",
+                        opacity: 0,
+                        pointerEvents: "none",
+                      }}
+                    />
+
                     {/* Error banner */}
                     {formState.status === "error" && (
                       <div className="flex items-start gap-3 bg-red-500/10 border border-red-500/30 rounded-xl px-4 py-3 text-red-400 text-sm animate-fadeInUp">
@@ -626,4 +679,4 @@ const ContactPage: React.FC = () => {
   );
 };
 
-export default ContactPage;
+export default ContactPage; 

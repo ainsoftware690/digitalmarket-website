@@ -49,3 +49,10 @@ body {
 .animate-fadeInLeft  { animation: fadeInLeft  0.8s 0.1s ease both; }
 .animate-fadeInRight { animation: fadeInRight 0.8s 0.2s ease both; }
 .animate-fadeInUp    { animation: fadeInUp    0.5s ease both; }
+
+/* ─── reCAPTCHA badge globally hide ───────────────────────────────────────── */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
