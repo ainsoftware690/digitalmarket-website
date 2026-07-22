@@ -15,6 +15,19 @@ import Image from "next/image";
 export default function GCCMarkets() {
   const [scrollY, setScrollY] = useState(0);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
+
+  handleResize();
+  window.addEventListener("resize", handleResize);
+
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
@@ -46,188 +59,222 @@ export default function GCCMarkets() {
       `}</style>
 
       {/* ================= HERO SECTION ================= */}
-      <section
+<section
+  style={{
+    padding: isMobile ? "100px 20px 60px" : "120px 40px 100px",
+    maxWidth: 1400,
+    margin: "0 auto",
+    display: "grid",
+    gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+    gap: isMobile ? 50 : 60,
+    alignItems: "center",
+    minHeight: isMobile ? "auto" : "100vh",
+  }}
+>
+  {/* Left Content */}
+  <div
+    style={{
+      textAlign: isMobile ? "center" : "left",
+      order: isMobile ? 2 : 1,
+    }}
+  >
+    <div
+      style={{
+        display: "inline-block",
+        background: "rgba(255, 107, 107, 0.1)",
+        border: "1px solid rgba(255, 107, 107, 0.3)",
+        borderRadius: 24,
+        padding: "8px 16px",
+        marginBottom: 24,
+        fontSize: 13,
+        fontWeight: 600,
+        color: "#FF6B6B",
+      }}
+    >
+      🚀 Expand into GCC Markets
+    </div>
+
+    <h1
+      style={{
+        fontSize: isMobile
+          ? "42px"
+          : "clamp(40px, 7vw, 72px)",
+        fontWeight: 900,
+        lineHeight: 1.1,
+        marginBottom: 24,
+        letterSpacing: "-2px",
+      }}
+    >
+      Dominate the Gulf with{" "}
+      <span
         style={{
-          padding: "120px 40px 100px",
-          maxWidth: 1400,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 60,
-          alignItems: "center",
-          minHeight: "100vh",
-          animation: "slideInLeft 0.8s ease-out",
+          background:
+            "linear-gradient(135deg, #FF6B6B, #FFD93D, #4ECDC4)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
         }}
       >
-        <div>
-          <div
-            style={{
-              display: "inline-block",
-              background: "rgba(255, 107, 107, 0.1)",
-              border: "1px solid rgba(255, 107, 107, 0.3)",
-              borderRadius: 24,
-              padding: "8px 16px",
-              marginBottom: 24,
-              fontSize: 13,
-              fontWeight: 600,
-              color: "#FF6B6B",
-            }}
-          >
-            🚀 Expand into GCC Markets
-          </div>
+        AI-Powered Growth
+      </span>
+    </h1>
 
-          <h1
-            style={{
-              fontSize: "clamp(40px, 7vw, 72px)",
-              fontWeight: 900,
-              lineHeight: 1.1,
-              marginBottom: 24,
-              letterSpacing: "-2px",
-            }}
-          >
-            Dominate the Gulf with{" "}
-            <span
-              style={{
-                background:
-                  "linear-gradient(135deg, #FF6B6B, #FFD93D, #4ECDC4)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              AI-Powered Growth
-            </span>
-          </h1>
+    <p
+      style={{
+        color: "#b0b0c0",
+        fontSize: isMobile ? 16 : 18,
+        lineHeight: 1.7,
+        marginBottom: 32,
+        maxWidth: isMobile ? "100%" : 500,
+        marginInline: isMobile ? "auto" : "0",
+      }}
+    >
+      Scale your business across Qatar, Saudi Arabia, and
+      the UAE. We deliver AI-driven marketing,
+      world-class development, and high-converting
+      digital systems built for GCC markets.
+    </p>
 
-          <p
-            style={{
-              color: "#b0b0c0",
-              fontSize: "18px",
-              lineHeight: 1.6,
-              marginBottom: 32,
-              maxWidth: 500,
-            }}
-          >
-            Scale your business across Qatar, Saudi Arabia, and the UAE. We
-            deliver AI-driven marketing, world-class development, and
-            high-converting digital systems built for GCC markets.
-          </p>
-
-          <div
-            style={{
-              display: "flex",
-              gap: 16,
-              marginBottom: 32,
-              flexWrap: "wrap",
-            }}
-          >
-            <Link href="/contact" passHref>
-            <button
-              style={{
-                padding: "16px 32px",
-                borderRadius: 12,
-                background: "linear-gradient(135deg, #FF6B6B, #FF5252)",
-                color: "#fff",
-                border: "none",
-                fontWeight: 700,
-                cursor: "pointer",
-                fontSize: 16,
-                transition: "all 0.3s",
-                boxShadow: "0 20px 40px rgba(255, 107, 107, 0.2)",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-              }}
-              onMouseEnter={(e) =>
-                ((e.target as HTMLElement).style.transform = "translateY(-2px)")
-              }
-              onMouseLeave={(e) =>
-                ((e.target as HTMLElement).style.transform = "translateY(0)")
-              }
-            >
-              Start Your Strategy <ArrowRight size={18} />
-            </button>
-            </Link>
-            
-            <Link href="/contact" passHref>
-            <button
-              style={{
-                padding: "16px 32px",
-                borderRadius: 12,
-                border: "1.5px solid rgba(255, 107, 107, 0.4)",
-                background: "transparent",
-                color: "#fff",
-                cursor: "pointer",
-                fontWeight: 600,
-                fontSize: 16,
-                transition: "all 0.3s",
-              }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.background =
-                  "rgba(255, 107, 107, 0.1)";
-                (e.target as HTMLElement).style.borderColor =
-                  "rgba(255, 107, 107, 0.6)";
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.background = "transparent";
-                (e.target as HTMLElement).style.borderColor =
-                  "rgba(255, 107, 107, 0.4)";
-              }}
-            >
-              Schedule Demo
-            </button>
-            </Link>
-          </div>
-
-          <div style={{ display: "flex", gap: 32, marginTop: 40 }}>
-            {[
-              { label: "150+", desc: "Projects Delivered" },
-              { label: "98%", desc: "Client Success Rate" },
-              { label: "24/7", desc: "Support Available" },
-            ].map((stat, i) => (
-              <div key={i}>
-                <div
-                  style={{ fontSize: 28, fontWeight: 900, color: "#FFD93D" }}
-                >
-                  {stat.label}
-                </div>
-                <div style={{ fontSize: 12, color: "#888", marginTop: 4 }}>
-                  {stat.desc}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div
+    {/* Buttons */}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: isMobile ? "column" : "row",
+        gap: 16,
+        marginBottom: 32,
+        justifyContent: isMobile ? "center" : "flex-start",
+      }}
+    >
+      <Link href="/contact">
+        <button
           style={{
-            position: "relative",
-            animation: "slideInRight 0.8s ease-out",
-            height: 500,
+            padding: "16px 32px",
+            width: isMobile ? "100%" : "auto",
+            borderRadius: 12,
             background:
-              "linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1))",
-            borderRadius: 20,
-            border: "1px solid rgba(255, 255, 255, 0.1)",
+              "linear-gradient(135deg, #FF6B6B, #FF5252)",
+            color: "#fff",
+            border: "none",
+            fontWeight: 700,
+            cursor: "pointer",
+            fontSize: 16,
+            boxShadow:
+              "0 20px 40px rgba(255,107,107,.2)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: 16,
-            color: "#888",
+            gap: 8,
           }}
         >
-          {/* Add your hero image here */}
-          <Image
-            src="/images/gcc1.jpg"
-            alt="GCC Skyline"
-            fill
+          Start Your Strategy
+          <ArrowRight size={18} />
+        </button>
+      </Link>
+
+      <Link href="/contact">
+        <button
+          style={{
+            padding: "16px 32px",
+            width: isMobile ? "100%" : "auto",
+            borderRadius: 12,
+            border:
+              "1.5px solid rgba(255,107,107,.4)",
+            background: "transparent",
+            color: "#fff",
+            cursor: "pointer",
+            fontWeight: 600,
+            fontSize: 16,
+          }}
+        >
+          Schedule Demo
+        </button>
+      </Link>
+    </div>
+
+    {/* Stats */}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: isMobile
+          ? "space-between"
+          : "flex-start",
+        gap: isMobile ? 20 : 32,
+        flexWrap: "wrap",
+      }}
+    >
+      {[
+        {
+          label: "150+",
+          desc: "Projects Delivered",
+        },
+        {
+          label: "98%",
+          desc: "Client Success Rate",
+        },
+        {
+          label: "24/7",
+          desc: "Support Available",
+        },
+      ].map((stat, i) => (
+        <div
+          key={i}
+          style={{
+            textAlign: isMobile
+              ? "center"
+              : "left",
+          }}
+        >
+          <div
             style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              borderRadius: 20,
+              fontSize: isMobile ? 24 : 28,
+              fontWeight: 900,
+              color: "#FFD93D",
             }}
-          />
+          >
+            {stat.label}
+          </div>
+
+          <div
+            style={{
+              fontSize: 12,
+              color: "#888",
+              marginTop: 4,
+            }}
+          >
+            {stat.desc}
+          </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+
+  {/* Right Image */}
+  <div
+    style={{
+      position: "relative",
+      order: isMobile ? 1 : 2,
+      height: isMobile ? 320 : 500,
+      width: "100%",
+      borderRadius: 24,
+      overflow: "hidden",
+      background:
+        "linear-gradient(135deg, rgba(255,107,107,.1), rgba(78,205,196,.1))",
+      border:
+        "1px solid rgba(255,255,255,.1)",
+      boxShadow:
+        "0 30px 80px rgba(0,0,0,.3)",
+    }}
+  >
+    <Image
+      src="/images/gcc1.jpg"
+      alt="GCC Skyline"
+      fill
+      sizes="(max-width:768px) 100vw, 50vw"
+      style={{
+        objectFit: "cover",
+      }}
+    />
+  </div>
+</section>
 
       {/* ================= MARKETS SECTION ================= */}
       <section

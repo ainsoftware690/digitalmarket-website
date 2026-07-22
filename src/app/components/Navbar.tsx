@@ -212,6 +212,7 @@ const Navbar = () => {
           >
             <div className="bg-gradient-to-br from-slate-800/95 to-blue-900/95 backdrop-blur-xl rounded-2xl border border-cyan-500/20 p-4 mt-4">
               <div className="flex flex-col space-y-2">
+                {/* Home */}
                 <Link
                   href="/"
                   onClick={closeAll}
@@ -219,28 +220,31 @@ const Navbar = () => {
                 >
                   Home
                 </Link>
-                <Link href="#about" className="relative group">
-                  <span className="text-slate-100 hover:text-cyan-400 font-medium transition-colors duration-300">
-                    About Us
-                  </span>
-                  <div className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-teal-400 group-hover:w-full transition-all duration-300"></div>
+
+                {/* About */}
+                <Link
+                  href="#about"
+                  onClick={closeAll}
+                  className="text-slate-200 hover:text-cyan-400 font-medium py-3 px-4 rounded-xl hover:bg-slate-700/30 transition-all duration-200"
+                >
+                  About Us
                 </Link>
 
-                {/* Mobile Services Dropdown */}
+                {/* Services Dropdown */}
                 <div className="w-full">
                   <button
                     onClick={() => toggleDropdown("services-mobile")}
                     className="w-full flex items-center justify-between text-slate-200 hover:text-cyan-400 font-medium py-3 px-4 rounded-xl hover:bg-slate-700/30 transition-all duration-200"
                   >
                     <span>Services</span>
+
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-300 flex-shrink-0 ${
+                      className={`w-4 h-4 transition-transform duration-300 ${
                         activeDropdown === "services-mobile" ? "rotate-180" : ""
                       }`}
                     />
                   </button>
 
-                  {/* Mobile Services Submenu */}
                   <div
                     className={`transition-all duration-300 overflow-hidden ${
                       activeDropdown === "services-mobile"
@@ -263,14 +267,16 @@ const Navbar = () => {
                   </div>
                 </div>
 
-                {/* <Link
-                  href="#testimonial"
+                {/* GCC Markets */}
+                <Link
+                  href="/vista"
                   onClick={closeAll}
                   className="text-slate-200 hover:text-cyan-400 font-medium py-3 px-4 rounded-xl hover:bg-slate-700/30 transition-all duration-200"
                 >
-                  Blogs
+                  GCC Markets
                 </Link>
-                 */}
+
+                {/* Contact */}
                 <Link
                   href="/contact"
                   onClick={closeAll}
@@ -279,13 +285,14 @@ const Navbar = () => {
                   Contact
                 </Link>
 
-                <Link href="/contact" onClick={closeAll}>
-                  <div className="pt-4 border-t border-slate-600/30 mt-2">
+                {/* Get Started Button */}
+                <div className="pt-4 border-t border-slate-600/30 mt-2">
+                  <Link href="/contact" onClick={closeAll}>
                     <button className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-900 font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 transition-all duration-300">
                       Get Started
                     </button>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
