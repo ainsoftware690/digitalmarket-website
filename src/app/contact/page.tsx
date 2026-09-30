@@ -119,9 +119,9 @@ const CONTACT_INFO = [
   {
     icon: Phone,
     title: "Call Us",
-    details: ["+1 (240) 217-6149"],
+    details: ["+1 (301) 478-6786"],
     gradient: "from-emerald-500 to-teal-500",
-    href: "tel:+12402176149",
+    href: "tel:+13014786786",
   },
   {
     icon: MapPin,

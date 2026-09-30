@@ -1,154 +1,195 @@
-"use client";
-import { DollarSign, Mail, Phone, MapPin, AlertCircle } from 'lucide-react';
+import type { Metadata } from "next";
+import Link from "next/link";
+import { LegalPage, type LegalSection } from "../components/legal/LegalPage";
+import { site } from "../../lib/site";
 
-const RefundPolicy = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-teal-900">
-      {/* Animated Background */}
-      <div className="fixed inset-0 opacity-20">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-emerald-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-        <div className="absolute top-40 right-10 w-96 h-96 bg-teal-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute bottom-20 left-1/2 w-96 h-96 bg-green-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 py-20">
-        {/* Header */}
-        <div className="text-center mb-16 mt-16">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl mb-6 shadow-2xl shadow-emerald-500/50">
-            <DollarSign className="w-10 h-10 text-white" />
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-green-400 bg-clip-text text-transparent mb-4">
-            Refund Policy
-          </h1>
-          {/* <div className="flex items-center justify-center space-x-6 text-gray-400 text-sm">
-            <span>Effective Date: January 1, 2025</span>
-            <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-            <span>Last Updated: January 1, 2025</span>
-          </div> */}
-        </div>
-
-        {/* Main Content */}
-        <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl">
-          <div className="prose prose-invert max-w-none">
-            {/* Introduction */}
-            <p className="text-gray-300 text-lg leading-relaxed mb-8">
-              At <span className="text-emerald-400 font-semibold">Digital Market Mart</span>, we strive to provide the highest quality digital services and consulting solutions. We value your trust and aim for complete client satisfaction. This Refund Policy outlines the conditions under which refunds may be issued.
-            </p>
-
-            {/* Section 1 */}
-            <h2 className="text-2xl font-bold text-white mt-12 mb-4">1. General Policy</h2>
-            <ul className="list-disc list-inside text-gray-300 leading-relaxed space-y-2 mb-8 ml-4">
-              <li>
-                All payments made for digital services (including but not limited to web development, mobile app development, SEO, digital marketing, IT consulting, and financial literacy/business consulting) are <span className="text-emerald-400 font-semibold">non-refundable</span> once the project or consultation has started.
-              </li>
-              <li>Refunds may be considered only in specific cases outlined below.</li>
-            </ul>
-
-            {/* Section 2 */}
-            <h2 className="text-2xl font-bold text-white mt-12 mb-4">2. Eligibility for Refunds</h2>
-            <p className="text-gray-300 leading-relaxed mb-4">A refund may be granted if:</p>
-            <ul className="list-disc list-inside text-gray-300 leading-relaxed space-y-2 mb-8 ml-4">
-              <li>The project has not been initiated after payment.</li>
-              <li>Services delivered are not in accordance with the agreed scope of work (subject to review and verification).</li>
-              <li>Duplicate payments or accidental overcharges have occurred.</li>
-            </ul>
-
-            {/* Section 3 */}
-            <h2 className="text-2xl font-bold text-white mt-12 mb-4">3. Non-Refundable Situations</h2>
-            <p className="text-gray-300 leading-relaxed mb-4">
-              Refunds will <span className="text-red-400 font-semibold">not</span> be issued if:
-            </p>
-            <ul className="list-disc list-inside text-gray-300 leading-relaxed space-y-2 mb-8 ml-4">
-              <li>The project has been partially or fully delivered.</li>
-              <li>Delays are caused by incomplete or delayed client communication, inputs, or approvals.</li>
-              <li>The client changes the scope of work or requests additional features beyond the original agreement.</li>
-              <li>The services have been consumed (e.g., SEO campaigns, consultations, or digital marketing strategies already executed).</li>
-            </ul>
-
-            {/* Section 4 */}
-            <h2 className="text-2xl font-bold text-white mt-12 mb-4">4. Refund Request Process</h2>
-            <ul className="list-disc list-inside text-gray-300 leading-relaxed space-y-2 mb-8 ml-4">
-              <li>
-                Refund requests must be submitted in writing to{' '}
-                <a href="mailto:helpdesk@digitalmarketmart.com" className="text-emerald-400 hover:text-emerald-300 underline">
-                  helpdesk@digitalmarketmart.com
-                </a>{' '}
-                within <span className="text-emerald-400 font-semibold">7 days</span> of payment.
-              </li>
-              <li>
-                Each request will be carefully reviewed, and eligible refunds will be processed within{' '}
-                <span className="text-emerald-400 font-semibold">7–14 business days</span> via the original payment method.
-              </li>
-            </ul>
-
-            {/* Section 5 */}
-            <h2 className="text-2xl font-bold text-white mt-12 mb-4">5. Service Credits</h2>
-            <p className="text-gray-300 leading-relaxed mb-8">
-              In certain cases, instead of a monetary refund, Digital Market Mart may offer{' '}
-              <span className="text-emerald-400 font-semibold">service credits</span> that can be applied toward future projects or services.
-            </p>
-
-            {/* Section 6 */}
-            <h2 className="text-2xl font-bold text-white mt-12 mb-4">6. Contact Us</h2>
-            <p className="text-gray-300 leading-relaxed mb-6">
-              If you have questions or need assistance regarding this Refund Policy, please contact:
-            </p>
-            
-            <div className="space-y-4 mb-8">
-              <div className="flex items-start space-x-3">
-                <Mail className="w-5 h-5 text-emerald-400 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="text-gray-400 text-sm font-semibold">Email:</p>
-                  <a href="mailto:helpdesk@digitalmarketmart.com" className="text-emerald-400 hover:text-emerald-300">
-                    helpdesk@digitalmarketmart.com
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <Phone className="w-5 h-5 text-emerald-400 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="text-gray-400 text-sm font-semibold">Phone:</p>
-                  <a href="tel:+12402176149" className="text-emerald-400 hover:text-emerald-300">
-                    +1 (240) 217-6149
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-emerald-400 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="text-gray-400 text-sm font-semibold">Address:</p>
-                  <p className="text-emerald-400">30 Summer St, Hagerstown, MD 21740</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Acknowledgment */}
-            <div className="bg-emerald-500/10 rounded-xl p-6 border border-emerald-400/30 mt-8">
-              <p className="text-gray-300 text-sm leading-relaxed">
-                By engaging with our services, you acknowledge and agree to the terms outlined in this Refund Policy.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Important Notice */}
-        <div className="mt-8 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 backdrop-blur-lg rounded-2xl p-6 border border-yellow-400/30">
-          <div className="flex items-start space-x-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
-              <AlertCircle className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h4 className="text-lg font-bold text-white mb-2">Need Help?</h4>
-              <p className="text-gray-300 text-sm">
-                If you have any concerns about our Refund Policy or need clarification on any terms, our team is here to assist you. Please reach out to us through any of the contact methods listed above.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+export const metadata: Metadata = {
+  title: "Refund & Cancellation Policy",
+  description: `How refunds, cancellations and billing disputes work at ${site.name}.`,
+  alternates: { canonical: "/refund-policy" },
 };
 
-export default RefundPolicy;
+const p = site.policy;
+
+const sections: LegalSection[] = [
+  {
+    id: "summary",
+    heading: "At a glance",
+    body: (
+      <div className="overflow-x-auto">
+        <table className="w-full text-left text-sm">
+          <thead>
+            <tr className="border-b border-slate-200 dark:border-slate-800">
+              <th className="py-2 pr-4 font-semibold">Service type</th>
+              <th className="py-2 pr-4 font-semibold">Cancel / refund rule</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100 dark:divide-slate-800 align-top">
+            <tr>
+              <td className="py-3 pr-4">Project services (websites, apps, e-commerce, automation builds)</td>
+              <td className="py-3 pr-4">
+                Full refund within {p.coolingOffBusinessDays} business days of payment if work has not started. After that,
+                pro-rated refund for milestones not yet delivered.
+              </td>
+            </tr>
+            <tr>
+              <td className="py-3 pr-4">Monthly services (SEO, marketing, content, automation support)</td>
+              <td className="py-3 pr-4">
+                Cancel any time with {p.retainerNoticeDays} days’ written notice. No further charges after the notice
+                period. The current paid month is not refunded.
+              </td>
+            </tr>
+            <tr>
+              <td className="py-3 pr-4">Business Credit Education program</td>
+              <td className="py-3 pr-4">
+                {p.educationGuaranteeDays}-day money-back guarantee if no more than one coaching session has been used.
+                Pro-rated after that.
+              </td>
+            </tr>
+            <tr>
+              <td className="py-3 pr-4">Third-party costs (ad spend, domains, hosting, licences, app-store fees)</td>
+              <td className="py-3 pr-4">Not refundable by us once purchased from the third party.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    ),
+  },
+  {
+    id: "projects",
+    heading: "Project-based services",
+    body: (
+      <>
+        <p>
+          Projects start with a {p.depositPercent}% deposit. The remaining balance is billed by milestone as set out in
+          your proposal or Statement of Work (SOW).
+        </p>
+        <ul>
+          <li>
+            <strong>Before work begins:</strong> if you cancel within {p.coolingOffBusinessDays} business days of paying the
+            deposit and before the kickoff call, you receive a 100% refund.
+          </li>
+          <li>
+            <strong>After work begins:</strong> we refund the portion of fees paid for milestones that have not been started,
+            less the value of work already completed (discovery, design, development hours), which we will itemise.
+          </li>
+          <li>
+            <strong>Approved milestones:</strong> milestones you have reviewed and approved in writing (including by email)
+            are non-refundable.
+          </li>
+          <li>
+            <strong>Not as described:</strong> if a deliverable does not match the agreed SOW, tell us within 14 days of
+            delivery. We will fix it at no charge; if we cannot, we refund the fee for that milestone.
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    id: "monthly",
+    heading: "Monthly and retainer services",
+    body: (
+      <>
+        <p>
+          Monthly services renew automatically on the same day each month until cancelled. You will be told the price and
+          billing date before you are first charged.
+        </p>
+        <ul>
+          <li>Cancel by emailing {site.email.billing} — we confirm cancellation in writing within 1 business day.</li>
+          <li>
+            Cancellation takes effect at the end of the {p.retainerNoticeDays}-day notice period; you will not be charged for
+            any cycle that starts after that.
+          </li>
+          <li>Fees already paid for the current cycle are not refunded, as the team and tools are reserved for you.</li>
+          <li>
+            Advertising budgets paid directly to Google, Meta, TikTok, Snap or other platforms are governed by those
+            platforms’ terms and are not refundable by {site.name}.
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    id: "education",
+    heading: "Business Credit Education program",
+    body: (
+      <>
+        <p>
+          If you are not satisfied, request a refund within {p.educationGuaranteeDays} days of purchase. You receive a full
+          refund provided you have used no more than one coaching session.
+        </p>
+        <p>
+          After {p.educationGuaranteeDays} days, or after more than one session, we refund the value of unused coaching
+          sessions on a pro-rated basis. Digital materials already delivered are not refundable.
+        </p>
+        <p>
+          This program is educational. Refunds are <strong>not</strong> based on whether you are approved for credit or
+          funding, because no outcome is promised — see our{" "}
+          <Link href="/services/business-credit-education">program page</Link>.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "how-to-request",
+    heading: "How to request a refund",
+    body: (
+      <ol>
+        <li>
+          Email <a href={`mailto:${site.email.billing}`}>{site.email.billing}</a> or call{" "}
+          <a href={`tel:${site.phones.support.e164}`}>{site.phones.support.display}</a> (Client Support &amp; Billing).
+        </li>
+        <li>Include your name, invoice or order number, the service, and the reason for your request.</li>
+        <li>We acknowledge every request within {p.refundResponseBusinessDays} business day and decide within 5 business days.</li>
+        <li>
+          Approved refunds go back to the original payment method within {p.refundProcessingBusinessDays} business days. Your
+          bank may take a few extra days to show the credit.
+        </li>
+      </ol>
+    ),
+  },
+  {
+    id: "billing",
+    heading: "Billing descriptor and disputes",
+    body: (
+      <>
+        <p>
+          Card charges appear on your statement as <strong>{site.statementDescriptor}</strong>. If you do not recognise a
+          charge or believe you were billed in error, please contact us first — we can usually resolve billing issues the
+          same day, faster than a bank dispute.
+        </p>
+        <p>
+          We keep records of proposals, approvals, deliverables and session attendance, and will share them with your card
+          issuer if a dispute is opened.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "changes",
+    heading: "Changes to this policy",
+    body: (
+      <p>
+        We may update this policy. The version in effect on the date you paid applies to that purchase. See also our{" "}
+        <Link href="/terms">Terms of Service</Link>.
+      </p>
+    ),
+  },
+];
+
+export default function RefundPolicyPage() {
+  return (
+    <LegalPage
+      path="/refund-policy"
+      title="Refund & Cancellation Policy"
+      intro={
+        <p>
+          We want every client to be confident paying {site.legalName} (“{site.name}”, “we”). This policy explains when you
+          can cancel, when you are entitled to a refund and how to request one. It forms part of our{" "}
+          <Link href="/terms">Terms of Service</Link>.
+        </p>
+      }
+      sections={sections}
+    />
+  );
+}
