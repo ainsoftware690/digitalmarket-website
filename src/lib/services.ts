@@ -5,15 +5,28 @@
 
 export type BillingModel = "one-time" | "monthly" | "custom";
 
+/** Every slug must have a matching route at /app/services/[slug]. */
+export type ServiceSlug =
+  | "web-development"
+  | "mobile-app-development"
+  | "e-commerce-development"
+  | "ai-automation-systems"
+  | "seo-optimizer"
+  | "digital-marketing"
+  | "ai-content-video-creation"
+  | "business-credit-education";
+
+export type ServiceCategory = "technology" | "marketing" | "education";
+
 export type Service = {
-  slug: string;
+  slug: ServiceSlug;
   title: string;
   summary: string;
   deliverables: string[];
   billing: BillingModel;
   /** Starting price in USD. `null` = quoted per project. */
   priceFrom: number | null;
-  category: "technology" | "marketing" | "education";
+  category: ServiceCategory;
 };
 
 export const services: Service[] = [
@@ -98,11 +111,27 @@ export const services: Service[] = [
   },
 ];
 
-export const categoryLabels: Record<Service["category"], string> = {
+export const categoryLabels: Record<ServiceCategory, string> = {
   technology: "Technology",
   marketing: "Marketing & Growth",
   education: "Business Education",
 };
+
+/** One-line intro shown under each category heading on /services. */
+export const categoryBlurbs: Record<ServiceCategory, string> = {
+  technology: "Fast, secure products engineered on Next.js, React and cloud-native stacks.",
+  marketing: "Demand generation that turns your website into a predictable pipeline.",
+  education: "Coaching and written guides on structuring your business and preparing for lenders.",
+};
+
+/** Display order for category groups. */
+export const categoryOrder: readonly ServiceCategory[] = ["technology", "marketing", "education"];
+
+/** O(1) lookup by slug — used by industry pages and nav. */
+export const serviceBySlug = Object.fromEntries(services.map((s) => [s.slug, s])) as Record<
+  ServiceSlug,
+  Service
+>;
 
 const usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
 
