@@ -9,12 +9,9 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-// ─── Environment validation ───────────────────────────────────────────────────
-const GROQ_API_KEY = process.env.GROQ_API_KEY;
-
-if (!GROQ_API_KEY) {
-  throw new Error("[chat/route] GROQ_API_KEY is not set. Add it to .env.local");
-}
+// ─── Environment ──────────────────────────────────────────────────────────────
+// Missing key → the route answers 503 instead of crashing the build or server.
+const GROQ_API_KEY = process.env.GROQ_API_KEY ?? "";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 // Groq is OpenAI-compatible — same request format
@@ -48,36 +45,41 @@ interface GroqResponse {
 const SYSTEM_PROMPT: GroqMessage = {
   role:    "system",
   content: `
-You are the official AI Assistant for Digital Market Mart (DMM), a world-class
-technology and digital agency headquartered in Hagerstown, MD, USA.
+You are the website assistant for Digital Market Mart LLC (DMM), a digital agency
+headquartered at 30 Summer St, Hagerstown, MD 21740, USA. DMM serves businesses in the
+United States, UAE, Saudi Arabia and Qatar.
 
-COMPANY
-- Tagline: "Build, Launch & Scale Your Digital Products with AI"
-- Stats: 500+ Projects | 98% Client Satisfaction | 8+ Years | 50+ Experts | 24/7 Support
-- Global presence: USA, UAE, Saudi Arabia, Qatar, UK, Canada, Australia
+WHAT DMM DOES
+- Build: website design and development (from $999), e-commerce stores (from $2,499),
+  mobile apps (custom quote).
+- Grow: SEO and local SEO, Google and Meta ads management, content and short-form video.
+  These are monthly, month-to-month retainers quoted after a free audit.
+- Automate: AI chatbots, CRM and workflow automation (custom quote).
+- Separately, DMM offers a Business Credit Education coaching program (from $1,497). It is
+  education only: DMM is not a lender or broker, does not repair personal credit, does not
+  sell aged or shelf corporations, and never guarantees approvals or funding.
 
-SERVICES
-1. Web Development — scalable web platforms, SaaS products, high-performance sites
-2. Mobile App Development — iOS & Android, native and cross-platform
-3. SEO Optimizer — organic growth, keyword strategy, technical & on/off-page SEO
-4. Growth & Digital Marketing — paid ads, data-driven funnels, customer acquisition
-5. AI & Automation Systems — AI agents, chatbots, workflow automation
-6. E-commerce Development — high-converting stores, payment integration, UX
-7. AI Content & Video Creation — AI-powered video production, content workflows
-8. Financial Literacy & Business Credit — credit building, aged corporations, funding
+HOW DMM WORKS
+- Every project gets a written scope and fixed price before work starts.
+- Projects: 50% deposit, balance billed by milestone.
+- Marketing retainers run month to month; cancel with 30 days' written notice.
+- Clients own their custom website, code, copy and media once paid in full.
+- Free audit: a 12-point review of the website and Google presence, sent as a short
+  video within two business days. Request it at /free-audit.
 
 CONTACT
+- New projects: +1 (301) 478-6786 (also WhatsApp)
+- Existing clients, support and billing: +1 (240) 217-6149
 - Email: helpdesk@digitalmarketmart.com
-- Phone: +1 (301) 478-6786
-- Address: 30 Summer St, Hagerstown MD 21740
+- Hours: Mon–Fri 9 AM – 6 PM ET; weekends by appointment
 
-BEHAVIOUR RULES
-- Be warm, professional, and concise (2–4 sentences; use bullets for lists)
-- Pricing is always custom/project-based → guide visitors to a free consultation
-- When buying intent is detected, end with:
-  "Ready to get started? Email helpdesk@digitalmarketmart.com or call +1 (301) 478-6786."
-- If asked something outside your knowledge, offer to connect them with the team
-- Never invent prices, timelines, or staff names
+RULES
+- Be warm, professional and brief: 2–4 sentences, bullets for lists.
+- Only use the facts above. Never invent prices, timelines, statistics, client names,
+  results, team size or staff names. If you don't know, say so and offer the team.
+- Never promise rankings, leads, revenue, credit approval or funding.
+- When someone wants to start, point them to the free audit at /free-audit or the
+  contact details above.
 `.trim(),
 };
 
@@ -98,7 +100,7 @@ function isValidMessages(value: unknown): value is ChatMessage[] {
 }
 
 // ─── Route handler ────────────────────────────────────────────────────────────
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   // 1. Parse body
@@ -125,6 +127,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     );
   }
 
+  if (!GROQ_API_KEY) {
+    return NextResponse.json(
+      { error: "The assistant is offline right now. Please call +1 (301) 478-6786 or email helpdesk@digitalmarketmart.com." },
+      { status: 503 },
+    );
+  }
+
   // 3. Build Groq messages: system prompt first, then conversation history
   const groqMessages: GroqMessage[] = [
     SYSTEM_PROMPT,
@@ -144,7 +153,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         model:      MODEL,
         messages:   groqMessages,
         max_tokens: MAX_TOKENS,
-        temperature: 0.7,
+        temperature: 0.3,
       }),
     });
   } catch (networkErr) {

@@ -21,8 +21,11 @@ export const site = {
   legalName: "Digital Market Mart LLC", // TODO(confirm): exact name as registered with Maryland SDAT
   entityType: "Maryland limited liability company", // TODO(confirm)
   url: "https://www.digitalmarketmart.com",
+  tagline: "Websites that sell. Marketing that fills them.",
+  /** Optional booking link (Calendly, Cal.com). When empty, forms are used instead. */
+  bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL ?? "",
   description:
-    "Web development, mobile apps, SEO, digital marketing, AI automation and business-credit education for businesses in the USA and GCC.",
+    "Maryland-based digital agency. We design high-converting websites, then bring in customers with SEO, Google Ads and AI automation.",
 
   address: {
     street: "30 Summer St",
@@ -59,12 +62,10 @@ export const site = {
     { days: "Sat – Sun", time: "By appointment" },
   ],
 
-  /** Keep stats consistent across every page (home, /vista, service pages). */
-  stats: {
-    projects: "150+", // TODO(confirm): use ONE number everywhere
-    years: "8+",
-    satisfaction: "98%",
-  },
+  /**
+   * Public numbers were removed from the site until they can be backed up.
+   * Proof (case studies, reviews, logos) now lives in src/lib/proof.ts.
+   */
 
   /** Shown on the refund policy & checkout so customers recognise the charge. */
   statementDescriptor: "DIGITALMARKETMART", // TODO(confirm) with your processor
@@ -90,11 +91,14 @@ export const site = {
   },
 } as const;
 
+export const whatsappUrl = (text = "Hi Digital Market Mart, I'd like to talk about a project.") =>
+  `https://wa.me/${site.phones.sales.e164.replace("+", "")}?text=${encodeURIComponent(text)}`;
+
 export const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
 
 export const legalLinks = [
-  { href: "/terms-and-conditions", label: "Terms of Service" },
-  { href: "/privacy-policy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms of Service" },
+  { href: "/privacy", label: "Privacy Policy" },
   { href: "/refund-policy", label: "Refund & Cancellation" },
   { href: "/intellectual-property", label: "IP & Licensing" },
 ] as const;

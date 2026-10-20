@@ -19,12 +19,12 @@ const sections: LegalSection[] = [
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead>
-            <tr className="border-b border-slate-200 dark:border-slate-800">
+            <tr className="border-b border-line">
               <th className="py-2 pr-4 font-semibold">Service type</th>
               <th className="py-2 pr-4 font-semibold">Cancel / refund rule</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 dark:divide-slate-800 align-top">
+          <tbody className="divide-y divide-slate-100 align-top">
             <tr>
               <td className="py-3 pr-4">Project services (websites, apps, e-commerce, automation builds)</td>
               <td className="py-3 pr-4">

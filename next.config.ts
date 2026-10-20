@@ -3,10 +3,17 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   poweredByHeader: false,
 
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
+
   async redirects() {
     return [
-      { source: "/about", destination: "/#about", permanent: true },
-      { source: "/about-us", destination: "/#about", permanent: true },
+      { source: "/about-us", destination: "/about", permanent: true },
+      { source: "/portfolio", destination: "/work", permanent: true },
+      { source: "/case-studies", destination: "/work", permanent: true },
+      { source: "/audit", destination: "/free-audit", permanent: true },
+      { source: "/free-seo-audit", destination: "/free-audit", permanent: true },
       { source: "/privacy-policy", destination: "/privacy", permanent: true },
       { source: "/terms-of-service", destination: "/terms", permanent: true },
       { source: "/terms-and-conditions", destination: "/terms", permanent: true },

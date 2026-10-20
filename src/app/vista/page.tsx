@@ -1,1221 +1,158 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import {
-  ArrowRight,
-  CheckCircle2,
-  TrendingUp,
-  Sparkles,
-  Code,
-  Zap,
-  Users,
-  Globe,
-} from "lucide-react";
-import Link from "next/link";
+import type { Metadata } from "next";
 import Image from "next/image";
-export default function GCCMarkets() {
-  const [scrollY, setScrollY] = useState(0);
+import Link from "next/link";
+import { pageMetadata } from "@/lib/seo";
+import { site, whatsappUrl } from "@/lib/site";
+import { Container, SectionHeading } from "../components/ui/SectionHeading";
+import PhotoHero from "../components/ui/PhotoHero";
+import { ProcessSection } from "../components/sections/ProcessSection";
 
-  const [isMobile, setIsMobile] = useState(false);
+export const metadata: Metadata = pageMetadata({
+  title: "Digital Marketing & Web Development in the UAE, Saudi Arabia and Qatar",
+  description:
+    "Bilingual websites, performance marketing, social commerce and automation for businesses in the UAE, Saudi Arabia and Qatar. Monthly packages from AED 5,000.",
+  path: "/vista",
+});
 
-useEffect(() => {
-  const handleResize = () => {
-    setIsMobile(window.innerWidth < 768);
-  };
+const MARKETS = [
+  {
+    name: "United Arab Emirates",
+    image: "/images/gcc4.jpg",
+    body: "A crowded, performance-driven market. We focus on paid search, Meta and TikTok campaigns with tight tracking, and fast bilingual landing pages.",
+  },
+  {
+    name: "Saudi Arabia",
+    image: "/images/gcc3.jpg",
+    body: "Fast-growing e-commerce and a young, mobile-first audience. We build Arabic-first stores and run social commerce and influencer campaigns.",
+  },
+  {
+    name: "Qatar",
+    image: "/images/gcc2.jpg",
+    body: "A smaller market with high spending power and event-driven demand. We plan campaigns around the calendar and focus on premium positioning.",
+  },
+];
 
-  handleResize();
-  window.addEventListener("resize", handleResize);
+const SERVICES = [
+  { title: "Performance marketing", body: "Google, Meta and TikTok campaigns with conversion tracking and weekly optimisation." },
+  { title: "Bilingual websites and stores", body: "Arabic and English sites with right-to-left layouts, local payment options and fast mobile pages." },
+  { title: "Content and video", body: "Short-form video and social content in Arabic and English, produced for each platform." },
+  { title: "Social commerce", body: "Instagram and TikTok Shop setup, catalogues and creator partnerships." },
+  { title: "AI chat and automation", body: "WhatsApp and website assistants that answer in Arabic and English and hand over to your team." },
+  { title: "Market entry planning", body: "Positioning, localisation and a channel plan for brands entering the region from the US or elsewhere." },
+];
 
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
+const PLANS = [
+  {
+    name: "Startup",
+    price: "AED 5,000",
+    period: "per month",
+    items: ["Strategy and audit", "1 campaign set up and managed", "Monthly report", "Email support"],
+  },
+  {
+    name: "Growth",
+    price: "AED 15,000",
+    period: "per month",
+    items: ["Full channel strategy", "Up to 3 active campaigns", "Weekly optimisation", "10 content pieces a month", "Dedicated account manager", "Priority support"],
+  },
+  {
+    name: "Enterprise",
+    price: "Custom",
+    period: "quoted in writing",
+    items: ["Full-service marketing team", "Campaigns across all channels", "Custom development", "Team training", "Senior account lead"],
+  },
+];
 
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
+export default function GccPage() {
   return (
-    <div
-      style={{
-        background: "#0A0E27",
-        color: "#fff",
-        fontFamily: "'Sora', 'Segoe UI', sans-serif",
-        overflow: "hidden",
-      }}
-    >
-      <style>{`
-        @keyframes slideInLeft {
-          from { opacity: 0; transform: translateX(-40px); }
-          to { opacity: 1; transform: translateX(0); }
+    <main>
+      <PhotoHero
+        photo={{ src: "/images/gcc1.jpg", alt: "City skyline at night in the Gulf region", width: 1200, height: 800, source: "" }}
+        breadcrumbs={[{ name: "Home", href: "/" }, { name: "GCC markets" }]}
+        title="Grow in the Gulf with one accountable team"
+        intro="We build bilingual websites and run the marketing behind them for businesses in the UAE, Saudi Arabia and Qatar, and for US brands expanding into the region."
+        actions={
+          <>
+            <Link href="/free-audit" className="btn btn-primary h-14 px-7">
+              Get a free audit
+            </Link>
+            <a href={whatsappUrl("Hi Digital Market Mart, I'd like to talk about marketing in the GCC.")} target="_blank" rel="noopener noreferrer" className="btn btn-on-dark h-14 px-7">
+              WhatsApp us
+            </a>
+          </>
         }
-        @keyframes slideInRight {
-          from { opacity: 0; transform: translateX(40px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+      />
 
-      {/* ================= HERO SECTION ================= */}
-<section
-  style={{
-    padding: isMobile ? "100px 20px 60px" : "120px 40px 100px",
-    maxWidth: 1400,
-    margin: "0 auto",
-    display: "grid",
-    gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-    gap: isMobile ? 50 : 60,
-    alignItems: "center",
-    minHeight: isMobile ? "auto" : "100vh",
-  }}
->
-  {/* Left Content */}
-  <div
-    style={{
-      textAlign: isMobile ? "center" : "left",
-      order: isMobile ? 2 : 1,
-    }}
-  >
-    <div
-      style={{
-        display: "inline-block",
-        background: "rgba(255, 107, 107, 0.1)",
-        border: "1px solid rgba(255, 107, 107, 0.3)",
-        borderRadius: 24,
-        padding: "8px 16px",
-        marginBottom: 24,
-        fontSize: 13,
-        fontWeight: 600,
-        color: "#FF6B6B",
-      }}
-    >
-      🚀 Expand into GCC Markets
-    </div>
-
-    <h1
-      style={{
-        fontSize: isMobile
-          ? "42px"
-          : "clamp(40px, 7vw, 72px)",
-        fontWeight: 900,
-        lineHeight: 1.1,
-        marginBottom: 24,
-        letterSpacing: "-2px",
-      }}
-    >
-      Dominate the Gulf with{" "}
-      <span
-        style={{
-          background:
-            "linear-gradient(135deg, #FF6B6B, #FFD93D, #4ECDC4)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-        }}
-      >
-        AI-Powered Growth
-      </span>
-    </h1>
-
-    <p
-      style={{
-        color: "#b0b0c0",
-        fontSize: isMobile ? 16 : 18,
-        lineHeight: 1.7,
-        marginBottom: 32,
-        maxWidth: isMobile ? "100%" : 500,
-        marginInline: isMobile ? "auto" : "0",
-      }}
-    >
-      Scale your business across Qatar, Saudi Arabia, and
-      the UAE. We deliver AI-driven marketing,
-      world-class development, and high-converting
-      digital systems built for GCC markets.
-    </p>
-
-    {/* Buttons */}
-    <div
-      style={{
-        display: "flex",
-        flexDirection: isMobile ? "column" : "row",
-        gap: 16,
-        marginBottom: 32,
-        justifyContent: isMobile ? "center" : "flex-start",
-      }}
-    >
-      <Link href="/contact">
-        <button
-          style={{
-            padding: "16px 32px",
-            width: isMobile ? "100%" : "auto",
-            borderRadius: 12,
-            background:
-              "linear-gradient(135deg, #FF6B6B, #FF5252)",
-            color: "#fff",
-            border: "none",
-            fontWeight: 700,
-            cursor: "pointer",
-            fontSize: 16,
-            boxShadow:
-              "0 20px 40px rgba(255,107,107,.2)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 8,
-          }}
-        >
-          Start Your Strategy
-          <ArrowRight size={18} />
-        </button>
-      </Link>
-
-      <Link href="/contact">
-        <button
-          style={{
-            padding: "16px 32px",
-            width: isMobile ? "100%" : "auto",
-            borderRadius: 12,
-            border:
-              "1.5px solid rgba(255,107,107,.4)",
-            background: "transparent",
-            color: "#fff",
-            cursor: "pointer",
-            fontWeight: 600,
-            fontSize: 16,
-          }}
-        >
-          Schedule Demo
-        </button>
-      </Link>
-    </div>
-
-    {/* Stats */}
-    <div
-      style={{
-        display: "flex",
-        justifyContent: isMobile
-          ? "space-between"
-          : "flex-start",
-        gap: isMobile ? 20 : 32,
-        flexWrap: "wrap",
-      }}
-    >
-      {[
-        {
-          label: "150+",
-          desc: "Projects Delivered",
-        },
-        {
-          label: "98%",
-          desc: "Client Success Rate",
-        },
-        {
-          label: "24/7",
-          desc: "Support Available",
-        },
-      ].map((stat, i) => (
-        <div
-          key={i}
-          style={{
-            textAlign: isMobile
-              ? "center"
-              : "left",
-          }}
-        >
-          <div
-            style={{
-              fontSize: isMobile ? 24 : 28,
-              fontWeight: 900,
-              color: "#FFD93D",
-            }}
-          >
-            {stat.label}
-          </div>
-
-          <div
-            style={{
-              fontSize: 12,
-              color: "#888",
-              marginTop: 4,
-            }}
-          >
-            {stat.desc}
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-
-  {/* Right Image */}
-  <div
-    style={{
-      position: "relative",
-      order: isMobile ? 1 : 2,
-      height: isMobile ? 320 : 500,
-      width: "100%",
-      borderRadius: 24,
-      overflow: "hidden",
-      background:
-        "linear-gradient(135deg, rgba(255,107,107,.1), rgba(78,205,196,.1))",
-      border:
-        "1px solid rgba(255,255,255,.1)",
-      boxShadow:
-        "0 30px 80px rgba(0,0,0,.3)",
-    }}
-  >
-    <Image
-      src="/images/gcc1.jpg"
-      alt="GCC Skyline"
-      fill
-      sizes="(max-width:768px) 100vw, 50vw"
-      style={{
-        objectFit: "cover",
-      }}
-    />
-  </div>
-</section>
-
-      {/* ================= MARKETS SECTION ================= */}
-      <section
-        id="markets"
-        style={{
-          padding: "100px 40px",
-          maxWidth: 1400,
-          margin: "0 auto",
-          background:
-            "linear-gradient(180deg, rgba(255, 107, 107, 0.05) 0%, transparent 100%)",
-        }}
-      >
-        <div style={{ textAlign: "center", marginBottom: 60 }}>
-          <h2
-            style={{
-              fontSize: "clamp(36px, 5vw, 56px)",
-              fontWeight: 900,
-              marginBottom: 16,
-              letterSpacing: "-1px",
-            }}
-          >
-            Markets We Master
-          </h2>
-          <p
-            style={{
-              fontSize: 18,
-              color: "#b0b0c0",
-              maxWidth: 600,
-              margin: "0 auto",
-            }}
-          >
-            Deep expertise and proven strategies across the GCC region
-          </p>
-        </div>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
-            gap: 28,
-          }}
-        >
-          {[
-            {
-              name: "Qatar",
-              color: "#FF6B6B",
-              image: "/images/gcc2.jpg",
-              icon: "🏙️",
-              desc: "Event-driven economy with premium demand and exceptional purchasing power",
-              stats: ["2.5M Population", "Premium Market", "High ROI"],
-            },
-            {
-              name: "Saudi Arabia",
-              color: "#FFD93D",
-              image: "/images/gcc3.jpg",
-              icon: "⚡",
-              desc: "Rapid digital growth powered by Vision 2030 and explosive e-commerce expansion",
-              stats: ["37M Population", "Fast Growth", "Tech Hub"],
-            },
-            {
-              name: "UAE",
-              color: "#4ECDC4",
-              image: "/images/gcc4.jpg",
-              icon: "🚀",
-              desc: "Competitive business hub with laser focus on performance and ROI-driven growth",
-              stats: ["9.9M Population", "Most Competitive", "AI Leader"],
-            },
-          ].map((market, i) => (
-            <div
-              key={i}
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))",
-                border: "1.5px solid rgba(255, 255, 255, 0.1)",
-                borderRadius: 16,
-                overflow: "hidden",
-                transition: "all 0.3s",
-                cursor: "pointer",
-                animation: `fadeInUp 0.8s ease-out ${i * 0.1}s both`,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = market.color;
-                e.currentTarget.style.boxShadow = `0 20px 40px ${market.color}20`;
-                e.currentTarget.style.transform = "translateY(-8px)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                e.currentTarget.style.boxShadow = "none";
-                e.currentTarget.style.transform = "translateY(0)";
-              }}
-            >
-              <div
-                style={{
-                  position: "relative",
-                  overflow: "hidden",
-                  height: 200,
-                  background:
-                    "linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  borderRadius: "16px 16px 0 0",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "#888",
-                }}
-              >
-                {/* Add your market image here */}
-
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    height: 200,
-                  }}
-                >
-                  <Image
-                    src={market.image}
-                    alt={market.name}
-                    fill
-                    style={{
-                      objectFit: "cover",
-                    }}
-                  />
-
-                  {/* Overlay */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      background:
-                        "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.6))",
-                    }}
-                  />
+      <section aria-labelledby="markets-heading" className="border-y border-line bg-paper py-20 sm:py-24">
+        <Container>
+          <SectionHeading id="markets-heading" title="Three markets, three playbooks" />
+          <ul className="mt-12 grid gap-8 md:grid-cols-3" data-reveal-stagger="120">
+            {MARKETS.map((m) => (
+              <li key={m.name} data-reveal className="group overflow-hidden rounded-[var(--radius-panel)] bg-white ring-1 ring-line">
+                <div className="zoom-frame"><Image src={m.image} alt="" width={800} height={500} sizes="(min-width: 768px) 33vw, 100vw" className="aspect-[16/10] w-full object-cover" /></div>
+                <div className="p-6">
+                  <h3 className="title text-xl text-ink">{m.name}</h3>
+                  <p className="mt-2 text-[16px] leading-relaxed text-muted">{m.body}</p>
                 </div>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
+
+      <section aria-labelledby="gcc-services-heading" className="bg-white py-20 sm:py-24">
+        <Container>
+          <SectionHeading id="gcc-services-heading" title="What we do in the region" />
+          <dl className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.map((s) => (
+              <div key={s.title} className="border-t-2 border-ink pt-5">
+                <dt className="title text-xl text-ink">{s.title}</dt>
+                <dd className="mt-2 text-[16px] leading-relaxed text-muted">{s.body}</dd>
               </div>
+            ))}
+          </dl>
+        </Container>
+      </section>
 
-              <div style={{ padding: 32 }}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 12,
-                    marginBottom: 16,
-                  }}
-                >
-                  <span style={{ fontSize: 28 }}>{market.icon}</span>
-                  <h3
-                    style={{
-                      fontSize: 24,
-                      fontWeight: 800,
-                      color: market.color,
-                    }}
-                  >
-                    {market.name}
-                  </h3>
-                </div>
-                <p
-                  style={{
-                    color: "#b0b0c0",
-                    fontSize: 14,
-                    lineHeight: 1.6,
-                    marginBottom: 20,
-                  }}
-                >
-                  {market.desc}
+      <section aria-labelledby="gcc-pricing-heading" className="border-t border-line bg-paper py-20 sm:py-24">
+        <Container>
+          <SectionHeading
+            id="gcc-pricing-heading"
+            title="Monthly packages"
+            lead="Prices in UAE dirhams, excluding ad spend and VAT. Your exact scope is agreed in writing before work starts."
+          />
+          <ul className="mt-12 grid gap-6 lg:grid-cols-3" data-reveal-stagger="120">
+            {PLANS.map((plan, i) => (
+              <li key={plan.name} data-reveal className={`flex flex-col rounded-[var(--radius-panel)] bg-white p-7 ring-1 ${i === 1 ? "ring-2 ring-ink" : "ring-line"}`}>
+                <h3 className="title text-xl text-ink">{plan.name}</h3>
+                <p className="mt-4">
+                  <span className="display text-4xl text-ink">{plan.price}</span>
+                  <span className="ml-2 text-[15px] text-muted">{plan.period}</span>
                 </p>
-                <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                  {market.stats.map((stat, j) => (
-                    <span
-                      key={j}
-                      style={{
-                        background: `rgba(${market.color === "#FF6B6B" ? "255, 107, 107" : market.color === "#FFD93D" ? "255, 217, 61" : "78, 205, 196"}, 0.1)`,
-                        color: market.color,
-                        padding: "4px 12px",
-                        borderRadius: 8,
-                        fontSize: 12,
-                        fontWeight: 600,
-                      }}
-                    >
-                      {stat}
-                    </span>
+                <ul className="mt-6 flex-1 space-y-2.5">
+                  {plan.items.map((item) => (
+                    <li key={item} className="flex gap-2.5 text-[16px] text-ink">
+                      <span aria-hidden className="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-signal" />
+                      {item}
+                    </li>
                   ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+                </ul>
+                <Link href="/contact?service=digital-marketing" className={`btn mt-8 ${i === 1 ? "btn-primary" : "btn-secondary"}`}>
+                  Talk to us about {plan.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8 text-[15px] text-muted">
+            Prefer to talk first? Call or WhatsApp{" "}
+            <a href={`tel:${site.phones.sales.e164}`} className="link">
+              {site.phones.sales.display}
+            </a>
+            .
+          </p>
+        </Container>
       </section>
 
-      {/* ================= SERVICES SECTION ================= */}
-      <section
-        id="services"
-        style={{
-          padding: "100px 40px",
-          maxWidth: 1400,
-          margin: "0 auto",
-        }}
-      >
-        <div style={{ textAlign: "center", marginBottom: 60 }}>
-          <h2
-            style={{
-              fontSize: "clamp(36px, 5vw, 56px)",
-              fontWeight: 900,
-              marginBottom: 16,
-              letterSpacing: "-1px",
-            }}
-          >
-            What We Deliver
-          </h2>
-          <p
-            style={{
-              fontSize: 18,
-              color: "#b0b0c0",
-              maxWidth: 600,
-              margin: "0 auto",
-            }}
-          >
-            End-to-end solutions built for GCC market success
-          </p>
-        </div>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: 24,
-            marginBottom: 60,
-          }}
-        >
-          {[
-            {
-              icon: <TrendingUp size={32} />,
-              title: "Performance Marketing",
-              desc: "AI-driven campaigns with real-time optimization, lead generation, and conversion tracking",
-              color: "#FF6B6B",
-            },
-            {
-              icon: <Sparkles size={32} />,
-              title: "AI Content & Video",
-              desc: "Multilingual content creation, professional video production, and viral growth strategies",
-              color: "#FFD93D",
-            },
-            {
-              icon: <Code size={32} />,
-              title: "Web & App Development",
-              desc: "Custom web apps, mobile applications, and progressive platforms optimized for GCC users",
-              color: "#4ECDC4",
-            },
-            {
-              icon: <Zap size={32} />,
-              title: "AI Automation",
-              desc: "Intelligent chatbots, customer support automation, and workflow optimization",
-              color: "#6C5CE7",
-            },
-            {
-              icon: <Users size={32} />,
-              title: "Social Commerce",
-              desc: "Instagram Shop setup, TikTok marketing, and influencer partnerships",
-              color: "#A29BFE",
-            },
-            {
-              icon: <Globe size={32} />,
-              title: "Market Strategy",
-              desc: "Localization, cultural adaptation, and go-to-market planning for GCC expansion",
-              color: "#FF7675",
-            },
-          ].map((service, i) => (
-            <div
-              key={i}
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))",
-                border: "1.5px solid rgba(255, 255, 255, 0.1)",
-                borderRadius: 14,
-                padding: 32,
-                transition: "all 0.3s",
-                cursor: "pointer",
-                animation: `fadeInUp 0.8s ease-out ${i * 0.08}s both`,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = service.color;
-                e.currentTarget.style.boxShadow = `0 20px 40px ${service.color}20`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                e.currentTarget.style.boxShadow = "none";
-              }}
-            >
-              <div style={{ color: service.color, marginBottom: 16 }}>
-                {service.icon}
-              </div>
-              <h3 style={{ fontSize: 20, fontWeight: 800, marginBottom: 12 }}>
-                {service.title}
-              </h3>
-              <p style={{ color: "#b0b0c0", fontSize: 14, lineHeight: 1.6 }}>
-                {service.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-
-       <div
-  style={{
-    width: "100%",
-    height: "700px",
-    position: "relative", // ✅ VERY IMPORTANT
-    borderRadius: 16,
-    overflow: "hidden",
-    border: "1.5px solid rgba(255, 255, 255, 0.1)",
-  }}
->
-  <Image
-    src="/images/gcc5.png"
-    alt="analytics dashboard"
-    fill
-    style={{
-      objectFit: "cover", // ✅ ONLY THIS
-    }}
-    priority
-  />
-
-  {/* Overlay (optional but recommended) */}
-  <div
-    style={{
-      position: "absolute",
-      inset: 0,
-      background:
-        "linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.6))",
-    }}
-  />
-</div>
-      </section>
-
-
-            {/* ================= WHY GCC MARKETS SECTION ================= */}
-      <section id="why-gcc" style={{
-        padding: "100px 40px",
-        maxWidth: 1400,
-        margin: "0 auto",
-        background: "linear-gradient(180deg, rgba(108, 92, 231, 0.05) 0%, transparent 100%)"
-      }}>
-        <div style={{ textAlign: "center", marginBottom: 60 }}>
-          <h2 style={{
-            fontSize: "clamp(36px, 5vw, 56px)",
-            fontWeight: 900,
-            marginBottom: 16,
-            letterSpacing: "-1px"
-          }}>
-            Why GCC Markets?
-          </h2>
-          <p style={{
-            fontSize: 18,
-            color: "#b0b0c0",
-            maxWidth: 700,
-            margin: "0 auto"
-          }}>
-            The Gulf region is one of the fastest-growing digital economies, offering high-value opportunities for businesses ready to scale.
-          </p>
-        </div>
- 
-        {/* Main Content */}
-        <div style={{
-          background: "linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))",
-          border: "1.5px solid rgba(255, 255, 255, 0.1)",
-          borderRadius: 16,
-          padding: 40,
-          marginBottom: 60,
-          animation: "fadeInUp 0.8s ease-out"
-        }}>
-          <p style={{
-            fontSize: 16,
-            color: "#b0b0c0",
-            lineHeight: 1.8,
-            marginBottom: 24
-          }}>
-            The GCC market presents a unique combination of <span style={{ color: "#FFD93D", fontWeight: 700 }}>high purchasing power</span>, <span style={{ color: "#FF6B6B", fontWeight: 700 }}>rapid digital adoption</span>, and <span style={{ color: "#4ECDC4", fontWeight: 700 }}>strong business growth</span>.
-          </p>
-          <p style={{
-            fontSize: 16,
-            color: "#b0b0c0",
-            lineHeight: 1.8
-          }}>
-            Businesses in Qatar, Saudi Arabia, and the UAE are actively investing in digital transformation, creating massive opportunities for companies that can deliver performance-driven solutions.
-          </p>
-        </div>
- 
-        {/* Key Points Grid */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: 24
-        }}>
-          {[
-            {
-              icon: "💰",
-              title: "High Purchasing Power",
-              desc: "Consumers and businesses in the GCC region have strong spending capacity, making it ideal for premium products and services.",
-              color: "#FFD93D",
-              bgColor: "rgba(255, 217, 61, 0.1)"
-            },
-            {
-              icon: "⚡",
-              title: "Rapid Digital Growth",
-              desc: "From e-commerce to mobile-first platforms, the region is experiencing fast adoption of digital technologies.",
-              color: "#4ECDC4",
-              bgColor: "rgba(78, 205, 196, 0.1)"
-            },
-            {
-              icon: "🚀",
-              title: "Government-Driven Expansion",
-              desc: "Initiatives like Saudi Vision 2030 are accelerating business, tech, and startup ecosystems across the region.",
-              color: "#FF6B6B",
-              bgColor: "rgba(255, 107, 107, 0.1)"
-            },
-            {
-              icon: "📱",
-              title: "Mobile-First Audience",
-              desc: "Most users interact through mobile devices, making optimized digital experiences critical for success.",
-              color: "#A29BFE",
-              bgColor: "rgba(162, 155, 254, 0.1)"
-            },
-            {
-              icon: "🎯",
-              title: "Competitive Yet Scalable",
-              desc: "While competition is high, businesses that implement the right strategies can scale quickly and capture market share.",
-              color: "#FF7675",
-              bgColor: "rgba(255, 118, 117, 0.1)"
-            },
-            {
-              icon: "📊",
-              title: "Strong ROI Potential",
-              desc: "GCC businesses prioritize results-driven spending, making ROI-focused digital strategies highly rewarded.",
-              color: "#6C5CE7",
-              bgColor: "rgba(108, 92, 231, 0.1)"
-            }
-          ].map((point, i) => (
-            <div key={i} style={{
-              background: point.bgColor,
-              border: `1.5px solid ${point.color}30`,
-              borderRadius: 14,
-              padding: 32,
-              transition: "all 0.3s",
-              cursor: "pointer",
-              animation: `fadeInUp 0.8s ease-out ${i * 0.08}s both`
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = point.color;
-              e.currentTarget.style.boxShadow = `0 20px 40px ${point.color}20`;
-              e.currentTarget.style.transform = "translateY(-8px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = `${point.color}30`;
-              e.currentTarget.style.boxShadow = "none";
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
-            >
-              <div style={{
-                fontSize: 40,
-                marginBottom: 16
-              }}>
-                {point.icon}
-              </div>
-              <h3 style={{
-                fontSize: 18,
-                fontWeight: 800,
-                marginBottom: 12,
-                color: point.color
-              }}>
-                {point.title}
-              </h3>
-              <p style={{
-                color: "#b0b0c0",
-                fontSize: 14,
-                lineHeight: 1.6
-              }}>
-                {point.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-
-      {/* ================= HOW IT WORKS ================= */}
-      <section
-        style={{
-          padding: "100px 40px",
-          maxWidth: 1400,
-          margin: "0 auto",
-          background:
-            "linear-gradient(180deg, rgba(78, 205, 196, 0.05) 0%, transparent 100%)",
-        }}
-      >
-        <div style={{ textAlign: "center", marginBottom: 60 }}>
-          <h2
-            style={{
-              fontSize: "clamp(36px, 5vw, 56px)",
-              fontWeight: 900,
-              marginBottom: 16,
-              letterSpacing: "-1px",
-            }}
-          >
-            Our Proven Process
-          </h2>
-          <p
-            style={{
-              fontSize: 18,
-              color: "#b0b0c0",
-              maxWidth: 600,
-              margin: "0 auto",
-            }}
-          >
-            From strategy to scale in 90 days
-          </p>
-        </div>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: 32,
-          }}
-        >
-          {[
-            {
-              num: "01",
-              title: "Discovery & Audit",
-              desc: "Market analysis, competitor research, and growth opportunity identification",
-            },
-            {
-              num: "02",
-              title: "Strategy Planning",
-              desc: "Customized roadmap, channel selection, and timeline definition",
-            },
-            {
-              num: "03",
-              title: "Implementation",
-              desc: "Campaign launch, content creation, and system setup",
-            },
-            {
-              num: "04",
-              title: "Optimization",
-              desc: "A/B testing, analytics review, and continuous improvement",
-            },
-          ].map((step, i) => (
-            <div
-              key={i}
-              style={{
-                animation: `fadeInUp 0.8s ease-out ${i * 0.12}s both`,
-              }}
-            >
-              <div
-                style={{
-                  fontSize: 48,
-                  fontWeight: 900,
-                  background: "linear-gradient(135deg, #FF6B6B, #FFD93D)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  marginBottom: 12,
-                }}
-              >
-                {step.num}
-              </div>
-              <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 8 }}>
-                {step.title}
-              </h3>
-              <p style={{ color: "#b0b0c0", fontSize: 14, lineHeight: 1.6 }}>
-                {step.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ================= SUCCESS STORIES ================= */}
-          <section style={{
-        padding: "100px 40px",
-        maxWidth: 1400,
-        margin: "0 auto"
-      }}>
-        <div style={{ textAlign: "center", marginBottom: 60 }}>
-          <h2 style={{
-            fontSize: "clamp(36px, 5vw, 56px)",
-            fontWeight: 900,
-            marginBottom: 16,
-            letterSpacing: "-1px"
-          }}>
-            Client Success Stories
-          </h2>
-          <p style={{
-            fontSize: 18,
-            color: "#b0b0c0",
-            maxWidth: 600,
-            margin: "0 auto"
-          }}>
-            Real results from real businesses in the GCC
-          </p>
-        </div>
- 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: 24
-        }}>
-          {[
-            {
-              company: "Luxury Fashion Brand",
-              image: "/images/gcc6.jpg",
-              location: "UAE",
-              metric: "340% ROI",
-              desc: "Achieved 340% return on ad spend through AI-optimized campaigns in 6 months"
-            },
-            {
-              company: "E-commerce Platform",
-              image: "/images/gcc7.jpg",
-              location: "Saudi Arabia",
-              metric: "2.5M Revenue",
-              desc: "Scaled to $2.5M in quarterly revenue using social commerce and influencer marketing"
-            },
-            {
-              company: "Tech Startup",
-              image: "/images/gcc8.jpg",
-              location: "Qatar",
-              metric: "500K Users",
-              desc: "Grew user base to 500K through mobile-first app development and viral marketing"
-            }
-          ].map((story, i) => (
-            <div key={i} style={{
-              background: "linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))",
-              border: "1.5px solid rgba(255, 255, 255, 0.1)",
-              borderRadius: 14,
-              overflow: "hidden",
-              animation: `fadeInUp 0.8s ease-out ${i * 0.1}s both`,
-              transition: "all 0.3s",
-              cursor: "pointer"
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "#FF6B6B";
-              e.currentTarget.style.boxShadow = "0 20px 40px rgba(255, 107, 107, 0.2)";
-              e.currentTarget.style.transform = "translateY(-8px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
-              e.currentTarget.style.boxShadow = "none";
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
-            >
-              <div style={{
-                width: "100%",
-                height: 200,
-                background: "linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#888",
-                position: "relative",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundImage: `url('${story.image}')`
-              }}>
-                {/* Image will load from the backgroundImage property */}
-              </div>
-              <div style={{ padding: 28 }}>
-                <div style={{
-                  fontSize: 28,
-                  fontWeight: 900,
-                  background: "linear-gradient(135deg, #FF6B6B, #FFD93D)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  marginBottom: 12
-                }}>
-                  {story.metric}
-                </div>
-                <h3 style={{ fontSize: 16, fontWeight: 800, marginBottom: 4 }}>
-                  {story.company}
-                </h3>
-                <p style={{ color: "#888", fontSize: 12, marginBottom: 12 }}>
-                  📍 {story.location}
-                </p>
-                <p style={{ color: "#b0b0c0", fontSize: 14, lineHeight: 1.6 }}>
-                  {story.desc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-
-      {/* ================= PRICING ================= */}
-      <section
-        style={{
-          padding: "100px 40px",
-          maxWidth: 1400,
-          margin: "0 auto",
-          background:
-            "linear-gradient(180deg, rgba(255, 107, 107, 0.05) 0%, transparent 100%)",
-        }}
-      >
-        <div style={{ textAlign: "center", marginBottom: 60 }}>
-          <h2
-            style={{
-              fontSize: "clamp(36px, 5vw, 56px)",
-              fontWeight: 900,
-              marginBottom: 16,
-              letterSpacing: "-1px",
-            }}
-          >
-            Transparent Pricing
-          </h2>
-          <p
-            style={{
-              fontSize: 18,
-              color: "#b0b0c0",
-              maxWidth: 600,
-              margin: "0 auto",
-            }}
-          >
-            Flexible packages for every stage of growth
-          </p>
-        </div>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-            gap: 24,
-            marginBottom: 40,
-          }}
-        >
-          {[
-            {
-              name: "Startup",
-              price: "5,000",
-              color: "#FF6B6B",
-              features: [
-                "Strategy & Audit",
-                "1 Campaign Setup",
-                "Monthly Reporting",
-                "Email Support",
-              ],
-            },
-            {
-              name: "Growth",
-              price: "15,000",
-              color: "#FFD93D",
-              popular: true,
-              features: [
-                "Full Strategy",
-                "3 Active Campaigns",
-                "Weekly Optimization",
-                "Priority Support",
-                "Content Creation (10/mo)",
-                "Dedicated Manager",
-              ],
-            },
-            {
-              name: "Enterprise",
-              price: "Custom",
-              color: "#4ECDC4",
-              features: [
-                "Full Service Agency",
-                "Unlimited Campaigns",
-                "24/7 Support",
-                "Custom Development",
-                "Team Training",
-                "VIP Account Manager",
-              ],
-            },
-          ].map((plan, i) => (
-            <div
-              key={i}
-              style={{
-                background: plan.popular
-                  ? `linear-gradient(135deg, ${plan.color}15, ${plan.color}05)`
-                  : "linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))",
-                border: `1.5px solid ${plan.popular ? plan.color : "rgba(255, 255, 255, 0.1)"}`,
-                borderRadius: 14,
-                padding: 32,
-                position: "relative",
-                transform: plan.popular ? "scale(1.05)" : "scale(1)",
-                animation: `fadeInUp 0.8s ease-out ${i * 0.1}s both`,
-                transition: "all 0.3s",
-              }}
-              onMouseEnter={(e) => {
-                if (!plan.popular) {
-                  e.currentTarget.style.borderColor = plan.color;
-                  e.currentTarget.style.boxShadow = `0 20px 40px ${plan.color}20`;
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!plan.popular) {
-                  e.currentTarget.style.borderColor =
-                    "rgba(255, 255, 255, 0.1)";
-                  e.currentTarget.style.boxShadow = "none";
-                }
-              }}
-            >
-              {plan.popular && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: -12,
-                    left: 20,
-                    background: plan.color,
-                    color: "#fff",
-                    padding: "4px 12px",
-                    borderRadius: 8,
-                    fontSize: 12,
-                    fontWeight: 700,
-                  }}
-                >
-                  MOST POPULAR
-                </div>
-              )}
-              <div
-                style={{
-                  color: plan.color,
-                  fontWeight: 600,
-                  fontSize: 12,
-                  marginBottom: 12,
-                }}
-              >
-                {plan.name.toUpperCase()}
-              </div>
-              <div style={{ fontSize: 36, fontWeight: 900, marginBottom: 8 }}>
-                {plan.price === "Custom" ? plan.price : `AED ${plan.price}`}
-                {plan.price !== "Custom" && (
-                  <span style={{ fontSize: 16, color: "#888" }}>/month</span>
-                )}
-              </div>
-              <button
-                style={{
-                  width: "100%",
-                  padding: "12px 24px",
-                  borderRadius: 10,
-                  background: plan.popular ? plan.color : "transparent",
-                  color: plan.popular ? "#fff" : plan.color,
-                  border: `1.5px solid ${plan.color}`,
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  marginBottom: 28,
-                  marginTop: 20,
-                  transition: "all 0.3s",
-                }}
-                onMouseEnter={(e) => {
-                  if (!plan.popular) {
-                    e.currentTarget.style.background = plan.color;
-                    e.currentTarget.style.color = "#fff";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!plan.popular) {
-                    e.currentTarget.style.background = "transparent";
-                    e.currentTarget.style.color = plan.color;
-                  }
-                }}
-              >
-                Get Started
-              </button>
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: 12 }}
-              >
-                {plan.features.map((feature, j) => (
-                  <div
-                    key={j}
-                    style={{ display: "flex", gap: 10, alignItems: "center" }}
-                  >
-                    <CheckCircle2 size={18} color={plan.color} />
-                    <span style={{ fontSize: 14, color: "#b0b0c0" }}>
-                      {feature}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA SECTION */}
-        <div
-          style={{
-            padding: "60px 40px",
-            maxWidth: "100%",
-            textAlign: "center",
-            background:
-              "linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1))",
-            borderRadius: 20,
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-          }}
-        >
-          <h2
-            style={{
-              fontSize: "clamp(32px, 5vw, 48px)",
-              fontWeight: 900,
-              marginBottom: 16,
-              letterSpacing: "-1px",
-            }}
-          >
-            Ready to Dominate GCC Markets?
-          </h2>
-          <p
-            style={{
-              fontSize: 18,
-              color: "#b0b0c0",
-              marginBottom: 32,
-              maxWidth: 600,
-              margin: "0 auto 32px",
-            }}
-          >
-            Join 150+ businesses already scaling with Vista. Let&apos;s build
-            your winning strategy today.
-          </p>
-          <button
-            style={{
-              padding: "16px 40px",
-              borderRadius: 12,
-              background: "linear-gradient(135deg, #FF6B6B, #FF5252)",
-              color: "#fff",
-              border: "none",
-              fontWeight: 700,
-              cursor: "pointer",
-              fontSize: 16,
-              transition: "all 0.3s",
-              boxShadow: "0 20px 40px rgba(255, 107, 107, 0.2)",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.transform = "translateY(-2px)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.transform = "translateY(0)")
-            }
-          >
-            Schedule Your Free Consultation <ArrowRight size={18} />
-          </button>
-        </div>
-      </section>
-    </div>
+      <ProcessSection tone="white" />
+    </main>
   );
 }

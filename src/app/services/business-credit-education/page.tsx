@@ -57,17 +57,17 @@ export default function BusinessCreditPage() {
   };
 
   return (
-    <main className="bg-white text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+    <main className="bg-white text-ink">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* HERO */}
-      <section className="bg-slate-50 dark:bg-slate-900">
+      <section className="bg-paper">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-          <p className="text-sm font-semibold uppercase tracking-wider text-blue-600">Business Education</p>
-          <h1 className="mt-12 text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <p className="text-sm font-semibold text-signal-press">Business Education</p>
+          <h1 className="display-md mt-12 text-[clamp(2.2rem,4.5vw,3.4rem)] text-ink">
             Business Credit Education &amp; Funding Readiness
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-400">
+          <p className="mt-4 max-w-2xl text-lg text-slate-600">
             Coaching programs from 8 weeks to 6 months that show small-business owners how to set up their company
             correctly, build a business credit profile and prepare a lender-ready application — so you can apply with
             confidence.
@@ -77,13 +77,13 @@ export default function BusinessCreditPage() {
 
       {/* HOW IT WORKS */}
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">How it works</h2>
+        <h2 className="text-2xl font-semibold text-ink">How it works</h2>
         <ol className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {businessCredit.steps.map((s, i) => (
-            <li key={s.title} className="rounded-xl border border-slate-200 p-5 dark:border-slate-800">
-              <span className="text-sm font-semibold text-blue-600">Step {i + 1}</span>
-              <h3 className="mt-1 font-semibold text-slate-900 dark:text-white">{s.title}</h3>
-              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{s.body}</p>
+            <li key={s.title} className="rounded-xl border border-line p-5">
+              <span className="text-sm font-semibold text-signal-press">Step {i + 1}</span>
+              <h3 className="mt-1 font-semibold text-ink">{s.title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{s.body}</p>
             </li>
           ))}
         </ol>
@@ -91,30 +91,30 @@ export default function BusinessCreditPage() {
 
       {/* PLANS */}
       <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">What you receive</h2>
+        <h2 className="text-2xl font-semibold text-ink">What you receive</h2>
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
           {businessCredit.plans.map((plan) => (
             <div
               key={plan.name}
               className={`relative flex flex-col rounded-2xl border p-6 ${
-                plan.highlight ? "border-blue-600 shadow-lg" : "border-slate-200 dark:border-slate-800"
+                plan.highlight ? "border-signal-press shadow-lg" : "border-line"
               }`}
             >
               {plan.highlight && (
-                <span className="absolute -top-3 left-6 rounded-full bg-blue-600 px-3 py-0.5 text-xs font-semibold text-white">
+                <span className="absolute -top-3 left-6 rounded-full bg-signal-press px-3 py-0.5 text-xs font-semibold text-white">
                   Most popular
                 </span>
               )}
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{plan.name}</h3>
+              <h3 className="text-lg font-semibold text-ink">{plan.name}</h3>
               <p className="mt-2">
-                <span className="text-3xl font-bold text-slate-900 dark:text-white">{formatUsd(plan.price)}</span>
+                <span className="text-3xl font-bold text-ink">{formatUsd(plan.price)}</span>
                 <span className="text-sm text-slate-500"> one-time · {plan.duration}</span>
               </p>
               {plan.installments && <p className="mt-1 text-sm text-slate-500">{plan.installments}</p>}
               <ul className="mt-5 space-y-2 text-sm">
                 {plan.items.map((it) => (
                   <li key={it} className="flex gap-2">
-                    <span aria-hidden className="text-blue-600">✓</span>
+                    <span aria-hidden className="text-signal-press">✓</span>
                     {it}
                   </li>
                 ))}
@@ -124,8 +124,8 @@ export default function BusinessCreditPage() {
                   href="/contact"
                   className={`inline-flex w-full justify-center rounded-lg px-4 py-2.5 text-sm font-semibold ${
                     plan.highlight
-                      ? "bg-blue-600 text-white hover:bg-blue-700"
-                      : "border border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-900"
+                      ? "bg-signal-press text-white hover:bg-ink"
+                      : "border border-signal-press text-signal-press hover:bg-signal-wash"
                   }`}
                 >
                   Book an intro call
@@ -143,14 +143,14 @@ export default function BusinessCreditPage() {
 
       {/* DISCLAIMER */}
       <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6 lg:px-8">
-        <div className="rounded-2xl border border-amber-300 bg-amber-50 p-6 dark:border-amber-700 dark:bg-amber-950/40">
-          <h2 className="text-lg font-semibold text-amber-900 dark:text-amber-200">Important — what this program is not</h2>
-          <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-amber-900 dark:text-amber-100">
+        <div className="rounded-2xl border border-amber-300 bg-amber-50 p-6">
+          <h2 className="text-lg font-semibold text-amber-900">Important — what this program is not</h2>
+          <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-amber-900">
             {businessCredit.notIncluded.map((n) => (
               <li key={n}>{n}</li>
             ))}
           </ul>
-          <p className="mt-3 text-sm text-amber-900 dark:text-amber-100">
+          <p className="mt-3 text-sm text-amber-900">
             Content is for educational purposes only and is not legal, tax or financial advice.
           </p>
         </div>
@@ -158,15 +158,15 @@ export default function BusinessCreditPage() {
 
       {/* FAQ */}
       <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">FAQ</h2>
-        <div className="mt-6 divide-y divide-slate-200 dark:divide-slate-800">
+        <h2 className="text-2xl font-semibold text-ink">FAQ</h2>
+        <div className="mt-6 divide-y divide-slate-200">
           {faqs.map((f) => (
             <details key={f.q} className="group py-4">
-              <summary className="flex cursor-pointer list-none items-center justify-between font-medium text-slate-900 dark:text-white">
+              <summary className="flex cursor-pointer list-none items-center justify-between font-medium text-ink">
                 {f.q}
                 <span aria-hidden className="ml-4 text-slate-400 transition group-open:rotate-45">+</span>
               </summary>
-              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{f.a}</p>
+              <p className="mt-2 text-sm text-slate-600">{f.a}</p>
             </details>
           ))}
         </div>

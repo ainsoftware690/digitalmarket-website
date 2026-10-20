@@ -1,7 +1,14 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY ?? "");
+// Created on first request so a missing key never breaks the build.
+let resendClient: Resend | null = null;
+function getResend(): Resend | null {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return null;
+  resendClient ??= new Resend(key);
+  return resendClient;
+}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface ContactPayload {
@@ -9,8 +16,35 @@ interface ContactPayload {
   email: string;
   company?: string;
   service?: string;
+  website?: string;
+  budget?: string;
   message: string;
 }
+
+// ─── HTML escaping (user input goes into email HTML) ─────────────────────────
+function esc(v: string): string {
+  return v
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function escapePayload(p: ContactPayload): ContactPayload {
+  return {
+    name: esc(p.name),
+    email: esc(p.email),
+    company: p.company ? esc(p.company) : undefined,
+    service: p.service ? esc(p.service) : undefined,
+    website: p.website ? esc(p.website) : undefined,
+    budget: p.budget ? esc(p.budget) : undefined,
+    message: esc(p.message),
+  };
+}
+
+const optional = (v: unknown, max: number): string | undefined =>
+  typeof v === "string" && v.trim() ? v.trim().slice(0, max) : undefined;
 
 // ─── reCAPTCHA Verification ──────────────────────────────────────────────────
 interface RecaptchaResponse {
@@ -85,6 +119,12 @@ function validatePayload(data: unknown): {
     d.message.trim().length < 10
   ) {
     errors.push("Message must be at least 10 characters");
+  } else if (d.message.length > 5000) {
+    errors.push("Message must be under 5,000 characters");
+  }
+
+  if (typeof d.name === "string" && d.name.length > 120) {
+    errors.push("Name must be under 120 characters");
   }
 
   if (errors.length > 0) return { valid: false, errors };
@@ -95,14 +135,10 @@ function validatePayload(data: unknown): {
     payload: {
       name: (d.name as string).trim(),
       email: (d.email as string).trim().toLowerCase(),
-      company:
-        d.company && typeof d.company === "string"
-          ? d.company.trim()
-          : undefined,
-      service:
-        d.service && typeof d.service === "string"
-          ? d.service.trim()
-          : undefined,
+      company: optional(d.company, 160),
+      service: optional(d.service, 120),
+      website: optional(d.website, 300),
+      budget: optional(d.budget, 80),
       message: (d.message as string).trim(),
     },
   };
@@ -146,6 +182,8 @@ function adminEmailHtml(p: ContactPayload): string {
                 { label: "📧 Email", value: p.email },
                 ...(p.company ? [{ label: "🏢 Company", value: p.company }] : []),
                 ...(p.service ? [{ label: "🛠 Service", value: p.service }] : []),
+                ...(p.website ? [{ label: "🌐 Website", value: p.website }] : []),
+                ...(p.budget ? [{ label: "💵 Monthly budget", value: p.budget }] : []),
               ]
                 .map(
                   (row) => `
@@ -317,7 +355,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 4. Send both emails in parallel
+    const resend = getResend();
+    if (!resend) {
+      console.error("[contact/route] RESEND_API_KEY is not set");
+      return NextResponse.json(
+        { success: false, message: "Our form is temporarily unavailable. Please email helpdesk@digitalmarketmart.com or call +1 (301) 478-6786." },
+        { status: 503 }
+      );
+    }
+
+    // 4. Escape user input before it is placed into email HTML
+    const safe = escapePayload(payload);
+
+    // 5. Send both emails in parallel
     const [adminResult, userResult] = await Promise.allSettled([
       // Notify helpdesk
       resend.emails.send({
@@ -325,7 +375,7 @@ export async function POST(req: NextRequest) {
         to: ["helpdesk@digitalmarketmart.com"],
         replyTo: payload.email,
         subject: `New Inquiry – ${payload.service ?? "General"} from ${payload.name}`,
-        html: adminEmailHtml(payload),
+        html: adminEmailHtml(safe),
       }),
 
       // Confirm to user
@@ -333,13 +383,18 @@ export async function POST(req: NextRequest) {
         from: "Digital Market Mart <contact@digitalmarketmart.com>",
         to: [payload.email],
         subject: "We received your message – Digital Market Mart",
-        html: userConfirmationHtml(payload),
+        html: userConfirmationHtml(safe),
       }),
     ]);
 
-    // 5. Handle results
-    if (adminResult.status === "rejected") {
-      console.error("[contact/route] Admin email failed:", adminResult.reason);
+    // 6. Handle results — Resend resolves with { error } instead of throwing
+    const adminFailed =
+      adminResult.status === "rejected" || Boolean(adminResult.value?.error);
+    if (adminFailed) {
+      console.error(
+        "[contact/route] Admin email failed:",
+        adminResult.status === "rejected" ? adminResult.reason : adminResult.value.error
+      );
       return NextResponse.json(
         { success: false, message: "Failed to send message. Please try again later." },
         { status: 500 }

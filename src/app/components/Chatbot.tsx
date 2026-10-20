@@ -17,25 +17,29 @@ const GREETING: Message = {
   id:        "greeting",
   role:      "assistant",
   content:
-    "👋 Hi! I'm your **DMM AI Assistant**.\n\n" +
-    "I can help with web development, mobile apps, AI automation, " +
-    "SEO, digital marketing, e-commerce & more.\n\nWhat can I help you with today?",
+    "Hi, I'm the Digital Market Mart assistant.\n\n" +
+    "Ask me about websites, SEO, ads, automation, pricing or how projects work. " +
+    "For anything specific, I'll point you to the team.",
   timestamp: new Date(),
 };
 
 const QUICK_CHIPS: ReadonlyArray<{ label: string; prompt: string }> = [
-  { label: "🚀 Services",        prompt: "What services do you offer?"                        },
-  { label: "🤖 AI & Automation",  prompt: "Tell me about your AI & Automation solutions"      },
-  { label: "📈 Grow Business",    prompt: "How can you help my business grow?"                },
-  { label: "🌍 Global Markets",   prompt: "Which markets and countries do you serve?"         },
-  { label: "✉️ Get Started",      prompt: "How do I start a project with Digital Market Mart?"},
+  { label: "What do you offer?",   prompt: "What services do you offer?"                          },
+  { label: "Website prices",       prompt: "How much does a website cost?"                        },
+  { label: "How projects work",    prompt: "How does a project work, from first call to launch?"  },
+  { label: "Free audit",           prompt: "What's included in the free audit?"                   },
 ] as const;
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
 /** Converts a small subset of Markdown to safe HTML. */
-function parseMarkdown(text: string): string {
+function escapeHtml(text: string): string {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function parseMarkdown(raw: string): string {
+  const text = escapeHtml(raw);
   return text
-    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-sky-300 font-semibold">$1</strong>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
     .replace(/\*(.*?)\*/g,     "<em>$1</em>")
     .replace(/^- (.+)$/gm,    "• $1")
     .replace(/\n/g,            "<br />");
@@ -54,8 +58,8 @@ const ChatHeader: FC<ChatHeaderProps> = memo(({ onClose }) => (
   <div
     className="flex items-center justify-between px-4 py-3 flex-shrink-0"
     style={{
-      background:   "linear-gradient(135deg, #0f1a3a, #141f4a)",
-      borderBottom: "0.5px solid rgba(79,172,254,0.15)",
+      background:   "#032a4c",
+      borderBottom: "0.5px solid rgba(255,255,255,0.12)",
     }}
   >
     <div className="flex items-center gap-3">
@@ -63,18 +67,18 @@ const ChatHeader: FC<ChatHeaderProps> = memo(({ onClose }) => (
         aria-hidden="true"
         className="w-9 h-9 rounded-xl flex items-center justify-center
                    text-xs font-bold text-white flex-shrink-0 select-none"
-        style={{ background: "linear-gradient(135deg, #4facfe, #7c3aed)" }}
+        style={{ background: "#d2420e" }}
       >
         DMM
       </div>
 
       <div>
         <p className="text-white font-semibold text-sm leading-none">
-          DMM AI Assistant
+          Ask Digital Market Mart
         </p>
-        <p className="flex items-center gap-1.5 mt-0.5 text-[11px]" style={{ color: "#4facfe" }}>
+        <p className="flex items-center gap-1.5 mt-0.5 text-[11px]" style={{ color: "#ffffffb3" }}>
           <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          Online · Powered by AI
+          Usually replies instantly
         </p>
       </div>
     </div>
@@ -84,7 +88,7 @@ const ChatHeader: FC<ChatHeaderProps> = memo(({ onClose }) => (
       aria-label="Close chat"
       className="w-7 h-7 rounded-lg flex items-center justify-center text-white/40
                  hover:text-white hover:bg-white/10 transition-colors
-                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f6541e]"
     >
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
         <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
@@ -101,28 +105,28 @@ const QuickChips: FC<QuickChipsProps> = memo(({ onSelect }) => (
   <div
     className="px-3 py-2 flex gap-2 flex-wrap flex-shrink-0"
     style={{
-      borderBottom: "0.5px solid rgba(255,255,255,0.05)",
-      background:   "rgba(255,255,255,0.02)",
+      borderBottom: "0.5px solid #d9e0e8",
+      background:   "#f4f6f9",
     }}
   >
     {QUICK_CHIPS.map(({ label, prompt }) => (
       <button
         key={label}
         onClick={() => onSelect(prompt)}
-        className="text-[11px] px-3 py-1.5 rounded-full font-medium transition-all duration-150
-                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+        className="text-[12.5px] px-3 py-1.5 rounded-full font-medium transition-all duration-150
+                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f6541e]"
         style={{
-          border:     "0.5px solid rgba(79,172,254,0.3)",
-          background: "rgba(79,172,254,0.07)",
-          color:      "#93c5fd",
+          border:     "0.5px solid #b9c5d2",
+          background: "#ffffff",
+          color:      "#032a4c",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.background  = "rgba(79,172,254,0.18)";
-          e.currentTarget.style.borderColor = "rgba(79,172,254,0.65)";
+          e.currentTarget.style.background  = "#fff1eb";
+          e.currentTarget.style.borderColor = "#d2420e";
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.background  = "rgba(79,172,254,0.07)";
-          e.currentTarget.style.borderColor = "rgba(79,172,254,0.3)";
+          e.currentTarget.style.background  = "#ffffff";
+          e.currentTarget.style.borderColor = "#b9c5d2";
         }}
       >
         {label}
@@ -139,7 +143,7 @@ const TypingIndicator: FC = memo(() => (
       aria-hidden="true"
       className="w-6 h-6 rounded-lg flex-shrink-0 flex items-center justify-center
                  text-[10px] font-bold text-white"
-      style={{ background: "linear-gradient(135deg, #4facfe, #7c3aed)" }}
+      style={{ background: "#d2420e" }}
     >
       ✦
     </div>
@@ -149,8 +153,8 @@ const TypingIndicator: FC = memo(() => (
       aria-label="Assistant is typing"
       className="flex gap-1 items-center px-3 py-3"
       style={{
-        background:   "rgba(255,255,255,0.06)",
-        border:       "0.5px solid rgba(255,255,255,0.09)",
+        background:   "#f4f6f9",
+        border:       "0.5px solid #d9e0e8",
         borderRadius: "4px 14px 14px 14px",
       }}
     >
@@ -160,7 +164,7 @@ const TypingIndicator: FC = memo(() => (
           aria-hidden="true"
           className="w-1.5 h-1.5 rounded-full"
           style={{
-            background:      "#4facfe",
+            background:      "#ffffffb3",
             animation:       "dmmBounce 1.3s ease-in-out infinite",
             animationDelay:  `${i * 0.18}s`,
           }}
@@ -184,7 +188,7 @@ const ChatBubble: FC<ChatBubbleProps> = memo(({ message }) => {
           aria-hidden="true"
           className="w-6 h-6 rounded-lg flex-shrink-0 flex items-center justify-center
                      text-[10px] font-bold text-white mb-0.5"
-          style={{ background: "linear-gradient(135deg, #4facfe, #7c3aed)" }}
+          style={{ background: "#d2420e" }}
         >
           ✦
         </div>
@@ -192,19 +196,19 @@ const ChatBubble: FC<ChatBubbleProps> = memo(({ message }) => {
 
       <div className={`flex flex-col gap-1 max-w-[78%] ${isUser ? "items-end" : "items-start"}`}>
         <div
-          className="px-3 py-2.5 text-[13px] leading-relaxed"
+          className="px-3 py-2.5 text-[14px] leading-relaxed"
           style={
             isUser
               ? {
-                  background:   "linear-gradient(135deg, #4facfe 0%, #7c3aed 100%)",
+                  background:   "#032a4c",
                   borderRadius: "14px 4px 14px 14px",
                   color:        "#fff",
                 }
               : {
-                  background:   message.isError ? "rgba(239,68,68,0.1)" : "rgba(255,255,255,0.06)",
-                  border:       `0.5px solid ${message.isError ? "rgba(239,68,68,0.3)" : "rgba(255,255,255,0.09)"}`,
+                  background:   message.isError ? "rgba(239,68,68,0.1)" : "#f4f6f9",
+                  border:       `0.5px solid ${message.isError ? "rgba(239,68,68,0.3)" : "#d9e0e8"}`,
                   borderRadius: "4px 14px 14px 14px",
-                  color:        "#e2e8f0",
+                  color:        "#032a4c",
                 }
           }
           // Safe: HTML comes from our parseMarkdown(), not from raw user input
@@ -214,7 +218,7 @@ const ChatBubble: FC<ChatBubbleProps> = memo(({ message }) => {
         <time
           dateTime={message.timestamp.toISOString()}
           className="text-[10px] px-1"
-          style={{ color: "rgba(255,255,255,0.22)" }}
+          style={{ color: "#6b7c8f" }}
         >
           {formatTime(message.timestamp)}
         </time>
@@ -243,7 +247,7 @@ const MessageList: FC<MessageListProps> = memo(({ messages, isLoading }) => {
       aria-live="polite"
       aria-label="Chat messages"
       className="flex-1 overflow-y-auto px-3 py-3 flex flex-col gap-3"
-      style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(79,172,254,0.2) transparent" }}
+      style={{ scrollbarWidth: "thin", scrollbarColor: "#b9c5d2 transparent" }}
     >
       {messages.map((msg) => (
         <ChatBubble key={msg.id} message={msg} />
@@ -300,8 +304,8 @@ const ChatInput: FC<ChatInputProps> = memo(({ onSend, disabled }) => {
     <div
       className="flex items-center gap-2 px-3 py-2.5 flex-shrink-0"
       style={{
-        borderTop:  "0.5px solid rgba(255,255,255,0.07)",
-        background: "rgba(255,255,255,0.02)",
+        borderTop:  "0.5px solid #d9e0e8",
+        background: "#f4f6f9",
       }}
     >
       <label htmlFor="dmm-chat-input" className="sr-only">
@@ -320,12 +324,12 @@ const ChatInput: FC<ChatInputProps> = memo(({ onSend, disabled }) => {
         onKeyDown={handleKeyDown}
         onInput={handleInput}
         className="flex-1 resize-none text-[13px] outline-none rounded-xl px-3 py-2.5
-                   leading-snug transition-colors placeholder:text-white/25
-                   disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-sky-400"
+                   leading-snug transition-colors placeholder:text-[#6b7c8f]
+                   disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-[#f6541e]"
         style={{
-          background:  "rgba(255,255,255,0.06)",
-          border:      "0.5px solid rgba(255,255,255,0.1)",
-          color:       "#e2e8f0",
+          background:  "#f4f6f9",
+          border:      "0.5px solid #b9c5d2",
+          color:       "#032a4c",
           maxHeight:   "88px",
           scrollbarWidth: "none",
         }}
@@ -338,10 +342,10 @@ const ChatInput: FC<ChatInputProps> = memo(({ onSend, disabled }) => {
         className="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center
                    transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed
                    hover:opacity-85 active:scale-95
-                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f6541e]"
         style={{
-          background: "linear-gradient(135deg, #4facfe, #7c3aed)",
-          boxShadow:  canSend ? "0 4px 14px rgba(79,172,254,0.35)" : "none",
+          background: "#d2420e",
+          boxShadow:  canSend ? "none" : "none",
         }}
       >
         <svg
@@ -381,10 +385,10 @@ const ChatFab: FC<ChatFabProps> = memo(({ isOpen, showBadge, onToggle }) => (
                flex items-center justify-center transition-all duration-200
                hover:scale-110 active:scale-95
                focus-visible:outline-none focus-visible:ring-2
-               focus-visible:ring-sky-400 focus-visible:ring-offset-2"
+               focus-visible:ring-[#f6541e] focus-visible:ring-offset-2"
     style={{
-      background: "linear-gradient(135deg, #4facfe, #7c3aed)",
-      boxShadow:  "0 8px 32px rgba(79,172,254,0.45)",
+      background: "#d2420e",
+      boxShadow:  "0 12px 30px -8px rgba(3,42,76,0.45)",
     }}
   >
     {showBadge && !isOpen && (
@@ -421,7 +425,7 @@ export default function Chatbot(): JSX.Element {
   const { messages, isLoading, sendMessage } = useChatbot();
 
   const [isOpen,      setIsOpen]      = useState(false);
-  const [showBadge,   setShowBadge]   = useState(true);
+  const [showBadge,   setShowBadge]   = useState(false);
   const [initialized, setInitialized] = useState(false);
 
   // Prepend static greeting once panel is first opened
@@ -466,8 +470,8 @@ export default function Chatbot(): JSX.Element {
           fixed bottom-24 right-6 z-50
           w-[360px] max-h-[580px] flex flex-col
           rounded-2xl overflow-hidden
-          border border-white/10
-          shadow-[0_24px_64px_rgba(0,0,0,0.65)]
+          border border-[#d9e0e8]
+          shadow-[0_24px_64px_-12px_rgba(3,42,76,0.4)]
           transition-all duration-300 ease-out origin-bottom-right
           max-sm:w-[calc(100vw-2rem)] max-sm:right-4 max-sm:bottom-[88px]
           ${isOpen
@@ -475,7 +479,7 @@ export default function Chatbot(): JSX.Element {
             : "opacity-0  scale-95  pointer-events-none"
           }
         `}
-        style={{ background: "linear-gradient(160deg, #0b1120 0%, #0d1530 100%)" }}
+        style={{ background: "#ffffff" }}
       >
         <ChatHeader onClose={handleClose} />
 
@@ -489,9 +493,9 @@ export default function Chatbot(): JSX.Element {
 
         <p
           className="text-center text-[10px] pb-1.5 flex-shrink-0 select-none"
-          style={{ color: "rgba(255,255,255,0.18)" }}
+          style={{ color: "#6b7c8f" }}
         >
-          Powered by Claude AI · Digital Market Mart
+          AI assistant. It can make mistakes; the team confirms every quote.
         </p>
       </div>
 
