@@ -129,8 +129,11 @@ const sections: LegalSection[] = [
   {
     id: "children",
     heading: "Children",
-    body: <p>Our services are for businesses and adults. We do not knowingly collect information from anyone under 18.</p>,
-  },
+    body: <p>Our services are for businesses and adults. We do not knowingly collect information from anyone under 18. 
+            I consent to receive marketing text messages, such as Promotional Texts, Sales, Special offers, etc., from GetMeConnect at the phone number I provided, including messages sent via auto dialer. I understand that my consent is not a condition of purchase. Message and data rates may apply. Message frequency varies. Reply HELP for assistance or STOP to opt out of receiving messages.
+    </p>,
+            
+   },
   {
     id: "contact",
     heading: "Contact and changes",

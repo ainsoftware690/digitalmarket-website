@@ -172,7 +172,7 @@ const sections: LegalSection[] = [
       <p>
         We may update these Terms; the version in effect when you place an Order applies to it. If any part is found
         unenforceable, the rest remains in force. Contact: <a href={`mailto:${site.email.general}`}>{site.email.general}</a>{" "}
-       
+        I consent to receive marketing text messages, such as Promotional Texts, Sales, Special offers, etc., from GetMeConnect at the phone number I provided, including messages sent via auto dialer. I understand that my consent is not a condition of purchase. Message and data rates may apply. Message frequency varies. Reply HELP for assistance or STOP to opt out of receiving messages.
       </p>
     ),
   },
