@@ -62,9 +62,22 @@ export default function LeadForm({ variant, defaultService = "" }: { variant: Va
     const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
 
     if (variant === "audit") {
+      const phone = data.phone?.trim() ?? "";
+      const smsConsent = data.sms_consent === "yes";
+      if (smsConsent && phone.replace(/\D/g, "").length < 10) {
+        setStatus("error");
+        setError("Add your mobile number to receive text messages, or untick the text message box.");
+        return;
+      }
       data.service = "Free audit";
       const goal = data.goal?.trim();
-      data.message = `Free audit request.\nWebsite: ${data.website || "(none yet)"}\nMain goal: ${goal || "(not given)"}`;
+      data.message = [
+        "Free audit request.",
+        `Website: ${data.website || "(none yet)"}`,
+        `Main goal: ${goal || "(not given)"}`,
+        `Phone: ${phone || "(not given)"}`,
+        `SMS consent: ${smsConsent ? `YES, given ${new Date().toISOString()} on ${window.location.href}` : "No"}`,
+      ].join("\n");
     }
 
     setStatus("sending");
@@ -130,11 +143,45 @@ export default function LeadForm({ variant, defaultService = "" }: { variant: Va
             />
             <Field label="Business name" name="company" autoComplete="organization" maxLength={160} />
             <Select label="Monthly marketing budget" name="budget" options={BUDGETS} />
+            <Field
+              label="Mobile number"
+              name="phone"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              placeholder="(301) 555-0123"
+              maxLength={25}
+              hint="Optional. Needed only if you want text messages."
+              className="sm:col-span-2"
+            />
             <div className="sm:col-span-2">
               <label htmlFor="goal" className="block text-[15px] font-semibold text-ink">
                 What would you most like to improve?
               </label>
               <textarea id="goal" name="goal" rows={3} maxLength={1000} className="field mt-2" placeholder="For example: more calls from Google, more online bookings" />
+            </div>
+            <div className="sm:col-span-2 flex gap-3 rounded-[var(--radius-card)] border border-line bg-paper p-4">
+              <input
+                id="sms_consent"
+                name="sms_consent"
+                type="checkbox"
+                value="yes"
+                className="mt-1 h-5 w-5 shrink-0 cursor-pointer rounded border-line-strong accent-[#d2420e]"
+              />
+              <label htmlFor="sms_consent" className="cursor-pointer text-[14px] leading-relaxed text-muted">
+                I consent to receive text messages about appointment reminders, audit updates and project notifications from{" "}
+                {site.name} at the phone number I provided. I acknowledge that my consent is not a condition of purchase.
+                Msg &amp; data rates may apply. Msg frequency varies. Reply HELP for assistance or STOP to opt out of receiving
+                messages. For more information, please review our{" "}
+                <Link href="/privacy" className="font-semibold text-ink underline">
+                  Privacy Policy
+                </Link>{" "}
+                and{" "}
+                <Link href="/terms" className="font-semibold text-ink underline">
+                  Terms and Conditions
+                </Link>
+                .
+              </label>
             </div>
           </>
         ) : (
